@@ -218,6 +218,20 @@ if freeze has been used.
       newTraces[p] = newTrace
     return newTraces
 
+  def prune(self, indexes, mode='sequential', process_cap=None):
+    self.mode = mode
+    self.process_cap = process_cap
+    kept_traces, kept_weights = self._prune_traces(indexes)
+    self.create_trace_pool(kept_traces, kept_weights)
+    self.incorporate()
+
+  def _prune_traces(self, indexes):
+    traces = self.retrieve_traces()
+    kept_traces = [self._use_parent({}, i) for i, _trace in enumerate(traces)
+      if i not in indexes]
+    kept_weights = [lw for i, lw in enumerate(self.log_weights) if i not in indexes]
+    return kept_traces, kept_weights
+
   def _use_parent(self, used_parents, index):
     # All traces returned from calling this function with the same
     # used_parents dict need to be unique (since they should be

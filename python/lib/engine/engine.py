@@ -203,6 +203,9 @@ class Engine(object):
   def resample(self, P, mode = 'sequential', process_cap = None):
     self.model.resample(P, mode, process_cap)
 
+  def prune(self, indexes, mode='sequential', process_cap=None):
+    self.model.prune(indexes, mode, process_cap)
+
   def diversify(self, program): self.model.diversify(program)
   def collapse(self, scope, block): self.model.collapse(scope, block)
   def collapse_map(self, scope, block): self.model.collapse_map(scope, block)

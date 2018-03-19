@@ -599,11 +599,24 @@ Might be useful for debugging concurrency+serialization problems
 without messing with actual multiprocessing, but then one is messing
 with multithreading.""")
 
+register_engine_method_sp("prune",
+  infer_action_maker_type([t.ArrayUnboxedType(t.IntegerType())]), desc="""\
+Remove from the overall particle set each particles whose index is
+given in `indexes`.
+""")
+
+register_engine_method_sp("prune_multiprocess",
+  infer_action_maker_type([t.ArrayUnboxedType(t.IntegerType())]), desc="""\
+Remove from the overall particle set each particles whose index is
+given in `indexes`.
+""")
+
 register_engine_method_sp("likelihood_weight", infer_action_maker_type([]), desc="""\
 Likelihood-weight the full particle set.
 
-Resample all particles in the current set from the prior and reset
-their weights to the likelihood.""")
+For each particle in the current set, resample all unobserved random choices
+from the prior, and set the particle weight to the likelihood of
+observations.""")
 
 register_engine_method_sp("enumerative_diversify",
                    infer_action_maker_type([t.AnyType("scope : object"),

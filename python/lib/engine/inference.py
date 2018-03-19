@@ -132,6 +132,17 @@ class Infer(object):
   def resample_multiprocess(self, ct, process_cap = None):
     self.engine.resample(ct, 'multiprocess', process_cap)
 
+  def prune(self, indexes):
+    self.engine.prune(indexes, 'sequential')
+  def prune_serializing(self, indexes, process_cap=None):
+    self.engine.prune(indexes, 'serializing', process_cap)
+  def prune_threaded(self, indexes, process_cap=None):
+    self.engine.prune(indexes, 'threaded', process_cap)
+  def prune_thread_ser(self, indexes, process_cap=None):
+    self.engine.prune(indexes, 'thread_ser', process_cap)
+  def prune_multiprocess(self, indexes, process_cap=None):
+    self.engine.prune(indexes, 'multiprocess', process_cap)
+
   def likelihood_weight(self): self.engine.likelihood_weight()
   def log_likelihood_at(self, scope, block):
     return self.engine.model.traces.map('log_likelihood_at', scope, block)
