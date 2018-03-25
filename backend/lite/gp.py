@@ -42,7 +42,11 @@ import venture.value.dicts as vv
 
 def _gp_sample(mean, covariance, samples, xs, np_rng):
   mu, sigma = _gp_mvnormal(mean, covariance, samples, xs)
-  return np_rng.multivariate_normal(mu, sigma)
+  # XXX Disable positive semi-definite warning.
+  import warnings
+  with warnings.catch_warnings():
+    warnings.simplefilter('ignore')
+    return np_rng.multivariate_normal(mu, sigma)
 
 def _gp_logDensity(mean, covariance, samples, xs, os):
   mu, sigma = _gp_mvnormal(mean, covariance, samples, xs)
