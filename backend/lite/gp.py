@@ -150,7 +150,12 @@ class GPOutputPSP(RandomPSP):
   def logDensity(self, os, args):
     samples = args.spaux().samples
     xs = args.operandValues()[0]
-    return _gp_logDensity(self.mean, self.covariance, samples, xs, os)
+    ans = _gp_logDensity(self.mean, self.covariance, samples, xs, os)
+    if np.isnan(ans):
+      print "GP got NaN log density at %s, %s, %s, %s, %s" \
+        % (self.mean, self.covariance, samples, xs, os)
+      return -float('inf')
+    return ans
 
   def gradientOfLogDensity(self, os, args):
     samples = args.spaux().samples
