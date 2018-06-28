@@ -31,7 +31,7 @@ class OrderedFrozenSet(object):
         self._dict = OrderedDict((x, 1) for x in iterable or ())
 
     def __iter__(self):
-        return self._dict.iterkeys()
+        return iter(self._dict.keys())
 
     def __len__(self):
         return len(self._dict)
@@ -40,10 +40,10 @@ class OrderedFrozenSet(object):
         return x in self._dict
 
     def isdisjoint(self, other):
-        for x in self._dict.iterkeys():
+        for x in self._dict.keys():
             if x in other:
                 return False
-        for x in other._dict.iterkeys():
+        for x in other._dict.keys():
             if x in self:
                 return False
         return True
@@ -52,7 +52,7 @@ class OrderedFrozenSet(object):
         return self <= other
 
     def __le__(self, other):
-        for x in self._dict.iterkeys():
+        for x in self._dict.keys():
             if x not in other:
                 return False
         return True
@@ -60,7 +60,7 @@ class OrderedFrozenSet(object):
     def __lt__(self, other):
         if not self <= other:
             return False
-        if all(x in self for x in other._dict.iterkeys()):
+        if all(x in self for x in other._dict.keys()):
             return False
         return True
 
@@ -68,7 +68,7 @@ class OrderedFrozenSet(object):
         return self >= other
 
     def __ge__(self, other):
-        for x in other._dict.iterkeys():
+        for x in other._dict.keys():
             if x not in self:
                 return False
         return True
@@ -76,7 +76,7 @@ class OrderedFrozenSet(object):
     def __gt__(self, other):
         if not self >= other:
             return False
-        if all(x in other for x in self._dict.iterkeys()):
+        if all(x in other for x in self._dict.keys()):
             return False
         return True
 

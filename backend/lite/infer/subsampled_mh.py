@@ -131,7 +131,7 @@ def sequentialTest(mu_0, k0, Nbatch, N, epsilon, fun_dllh):
     # Process k'th subset of local variables subsampled w/o replacement.
     n_start = n
     n_end = min(n + Nbatch, N)
-    for i in xrange(int(n_start), int(n_end)):
+    for i in range(int(n_start), int(n_end)):
       dllh = fun_dllh(i)
       cum_dllh  += dllh
       cum_dllh2 += dllh * dllh
@@ -303,7 +303,7 @@ class SubsampledBlockScaffoldIndexer(BlockScaffoldIndexer):
             (node in index1.brush)    == (node in index2.brush))
 
   def allNodesInScaffold(self, index):
-    return OrderedSet(index.regenCounts.keys()) | index.absorbing | index.brush
+    return OrderedSet(list(index.regenCounts.keys())) | index.absorbing | index.brush
 
   def traverseTrace(self, trace, include, startSet, descend, failAt):
     nodeSet = OrderedSet()

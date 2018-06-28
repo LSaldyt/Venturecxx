@@ -16,7 +16,7 @@
 # along with Venture.  If not, see <http://www.gnu.org/licenses/>.
 
 def assertTorus(scaffold):
-  for _,regenCount in scaffold.regenCounts.iteritems(): 
+  for _,regenCount in scaffold.regenCounts.items(): 
     assert regenCount == 0
 
 def assertTrace(trace,scaffold):

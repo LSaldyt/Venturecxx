@@ -32,6 +32,6 @@ def testTwoSampleKS(seed):
 
 @in_backend("none")
 def testTwoSampleChi2():
-  data1 = range(5) * 5
+  data1 = list(range(5)) * 5
   data2 = sorted(data1)
   assert reportSameDiscrete(data1, data2).pval == 1

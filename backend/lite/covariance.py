@@ -56,7 +56,7 @@ than a function that returns a matrix whose product with an increment
 in theta is an increment in the covariance matrix.
 """
 
-from __future__ import division
+
 
 import numpy as np
 import scipy.spatial.distance
@@ -656,11 +656,11 @@ class linear(Kernel):
     Y = Y.reshape(len(Y), -1)
 
     dk = [None] * d
-    for nu in xrange(d):
+    for nu in range(d):
       dk[nu] = 2*c[nu] * np.ones((len(X), len(Y)))
-      for i in xrange(len(X)):
+      for i in range(len(X)):
         dk[nu][i,:] -= Y[:,nu]
-      for j in xrange(len(Y)):
+      for j in range(len(Y)):
         dk[nu][:,j] -= X[:,nu]
 
     return (k, dk)
@@ -678,9 +678,9 @@ class linear(Kernel):
     Y = Y.reshape(len(Y), -1)
 
     dk = [None] * d
-    for nu in xrange(d):
+    for nu in range(d):
       dk[nu] = -c[nu] * np.ones((len(X), len(Y)))
-      for i in xrange(len(X)):
+      for i in range(len(X)):
         dk[nu][i,:] += Y[:,nu]
 
     return (k, dk)

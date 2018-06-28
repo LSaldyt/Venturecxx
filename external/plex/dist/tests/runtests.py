@@ -14,7 +14,7 @@ def run_test(test_name, out_name, err_name):
       __import__(test_name)
     except KeyboardInterrupt:
       raise
-    except SystemExit, e:
+    except SystemExit as e:
       sys.stderr.write("Exit code %s\n" % e)
       result = 0
     except:
@@ -53,25 +53,25 @@ def run():
     test_out2 = test_name + ".out2"
     test_err = test_name + ".err"
     if os.path.exists(test_out):
-      print "%s:" % test_name,
+      print("%s:" % test_name, end=' ')
       sys.stdout.flush()
       succeeded = run_test(test_name, test_out2, test_err)
       if succeeded:
         succeeded = check_result(test_out, test_out2)
         if succeeded:
-          print "passed"
+          print("passed")
         else:
-          print "failed *****"
+          print("failed *****")
       else:
-        print "error *****"
+        print("error *****")
     else:
-      print "creating %s:" % test_out,
+      print("creating %s:" % test_out, end=' ')
       sys.stdout.flush()
       succeeded = run_test(test_name, test_out, test_err)
       if succeeded:
-        print "succeeded"
+        print("succeeded")
       else:
-        print "error *****"
+        print("error *****")
     if succeeded:
       remove(test_out2)
       remove(test_err)

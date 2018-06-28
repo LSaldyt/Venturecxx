@@ -59,7 +59,7 @@ def struct(typename, field_names, verbose=False):
 
     # Parse and validate the field names.  Validation serves two purposes,
     # generating informative error messages and preventing template injection attacks.
-    if isinstance(field_names, basestring):
+    if isinstance(field_names, str):
         field_names = field_names.replace(',', ' ').split() # names separated by whitespace and/or commas
     field_names = tuple(map(str, field_names))
     for name in (typename,) + field_names:
@@ -109,13 +109,13 @@ def struct(typename, field_names, verbose=False):
             return result \n\n'''
     template = template % locals()
     if verbose:
-        print template
+        print(template)
 
     # Execute the template string in a temporary namespace
     namespace = dict(__name__='struct_%s' % typename)
     try:
-        exec template in namespace
-    except SyntaxError, e:
+        exec(template, namespace)
+    except SyntaxError as e:
         raise SyntaxError(e.message + ':\n' + template)
     result = namespace[typename]
 
@@ -137,7 +137,7 @@ def struct(typename, field_names, verbose=False):
 
 if __name__ == '__main__':
     # verify that instances can be pickled
-    from cPickle import loads, dumps
+    from pickle import loads, dumps
     Point = struct('Point', 'x, y', True)
     p = Point(x=10, y=20)
     assert p == loads(dumps(p, -1))
@@ -151,10 +151,10 @@ if __name__ == '__main__':
             return 'Point: x=%6.3f y=%6.3f hypot=%6.3f' % (self.x, self.y, self.hypot)
 
     for p in Point(3,4), Point(14,5), Point(9./7,6):
-        print p
+        print(p)
 
-    print Point(11, 22)._replace(x=100)
+    print(Point(11, 22)._replace(x=100))
 
     import doctest
     TestResults = struct('TestResults', 'failed attempted')
-    print TestResults(*doctest.testmod())
+    print(TestResults(*doctest.testmod()))

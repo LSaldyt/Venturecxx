@@ -138,7 +138,7 @@ def assign_continuous_colors(data, gg, aes_name, color_col, labels, indices):
     key_colors = [rgb2hex(value) for value in key_colors]
 
     legend_entry = {'column_name': color_col,
-                    'dict' : dict(zip(key_colors, labels)),
+                    'dict' : dict(list(zip(key_colors, labels))),
                     'scale_type': 'continuous'}
     return data, legend_entry
 
@@ -181,6 +181,6 @@ def assign_discrete_colors(data, gg, aes_name, color_col, labels):
     data[_mcolumn] = data[color_col].apply(lambda x: color_mapping[x])
 
     legend_entry = {'column_name': color_col,
-                    'dict': dict((v, k) for k, v in color_mapping.items()),
+                    'dict': dict((v, k) for k, v in list(color_mapping.items())),
                     'scale_type': 'discrete'}
     return data, legend_entry

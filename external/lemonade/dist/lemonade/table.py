@@ -2,8 +2,8 @@
 Code for processing tables in the LEMON parser generator.
 '''
 
-from struct import *
-from ccruft import *
+from .struct import *
+from .ccruft import *
 
 
 # There is one instance of the following structure for each
@@ -61,7 +61,7 @@ def insert(array, key, data, hash, cmp):
             # An existing entry with the same key is found.
             # Fail because overwrite is not allowed.
             return False
-        np = np.next
+        np = np.__next__
 
 
     if array.count >= array.size:
@@ -77,7 +77,7 @@ def insert(array, key, data, hash, cmp):
             h = hash(oldnp.key) & (size - 1)
             newnp = tbl[i]
             if ht[h]:
-                ht[h]._from = newnp.next
+                ht[h]._from = newnp.__next__
             newnp.next = ht[h]
             newnp.key = oldnp.key
             newnp.data = oldnp.data
@@ -98,7 +98,7 @@ def insert(array, key, data, hash, cmp):
     np.key = key
     np.data = data
     if array.ht[h]:
-        array.ht[h]._from = np.next
+        array.ht[h]._from = np.__next__
     np.next = array.ht[h]
     array.ht[h] = np
     np._from = array.ht[h]
@@ -118,7 +118,7 @@ def find(array, key, hash, cmp):
     while np:
         if cmp(np.key, key) == 0:
             break
-        np = np.next
+        np = np.__next__
 
     return np.data if np else None
 

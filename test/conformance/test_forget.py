@@ -45,7 +45,7 @@ def testForgetContinuousInference3():
     ripl.predict("(flip)",label=pid)
     ripl.infer(5)
     
-  for i in reversed(range(10)):
+  for i in reversed(list(range(10))):
     pid = "pid%d" % i
     ripl.forget(pid)
     ripl.infer(5)
@@ -68,7 +68,7 @@ def testForgetContinuousInference4():
     ripl.observe("(flip)","true",label=pid)
     ripl.infer(5)
     
-  for i in reversed(range(10,20)):
+  for i in reversed(list(range(10,20))):
     pid = "pid%d" % i
     ripl.forget(pid)
     ripl.infer(5)

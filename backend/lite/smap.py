@@ -55,7 +55,7 @@ class SamplableMap(object):
 
   def sample(self,py_rng): return py_rng.sample(self.a,1)[0]
 
-  def keys(self): return self.d.keys()
+  def keys(self): return list(self.d.keys())
 
   def values(self): return [v for (_,v) in self.a]
 

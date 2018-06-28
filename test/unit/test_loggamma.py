@@ -53,7 +53,7 @@ def test_loggamma_density_quad():
 def check_loggamma_ks(shape, seed):
   np_rng = numpy.random.RandomState(seed)
   nsamples = default_num_samples()
-  log_samples = [simulateLogGamma(shape, np_rng) for _ in xrange(nsamples)]
+  log_samples = [simulateLogGamma(shape, np_rng) for _ in range(nsamples)]
   samples = np.exp(np.array(log_samples))
   dist = scipy.stats.gamma(shape)
   return reportKnownContinuous(dist.cdf, samples)
@@ -67,7 +67,7 @@ def check_loggamma_ks_quad(shape, seed):
   inf = float('inf')
   np_rng = numpy.random.RandomState(seed)
   nsamples = default_num_samples()
-  samples = [simulateLogGamma(shape, np_rng) for _ in xrange(nsamples)]
+  samples = [simulateLogGamma(shape, np_rng) for _ in range(nsamples)]
   def pdf(x):
     return exp(logDensityLogGamma(x, shape))
   def cdf(x):

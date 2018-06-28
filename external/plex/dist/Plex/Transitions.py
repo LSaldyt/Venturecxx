@@ -7,7 +7,7 @@
 
 from copy import copy
 import string
-from sys import maxint
+from sys import maxsize
 from types import TupleType
 
 class TransitionMap:
@@ -107,7 +107,7 @@ class TransitionMap:
         result.append(((code0, code1), set))
       code0 = code1
       i = i + 2
-    for event, set in self.special.items():
+    for event, set in list(self.special.items()):
       if set:
         result.append((event, set))
     return result
@@ -177,7 +177,7 @@ class TransitionMap:
         map_strs.append(state_set_str(map[i]))
       i = i + 1
     special_strs = {}
-    for event, set in self.special.items():
+    for event, set in list(self.special.items()):
       special_strs[event] = state_set_str(set)
     return "[%s]+%s" % (
       string.join(map_strs, ","), 
@@ -189,7 +189,7 @@ class TransitionMap:
   def check(self):
     """Check data structure integrity."""
     if not self.map[-3] < self.map[-1]:
-      print self
+      print(self)
       assert 0
   
   def dump(self, file):
@@ -199,7 +199,7 @@ class TransitionMap:
     while i < n:
       self.dump_range(map[i], map[i + 2], map[i + 1], file)
       i = i + 2
-    for event, set in self.special.items():
+    for event, set in list(self.special.items()):
       if set:
         if not event:
           event = 'empty'
@@ -242,7 +242,7 @@ class TransitionMap:
 #			set1[state] = 1
 
 def state_set_str(set):
-  state_list = set.keys()
+  state_list = list(set.keys())
   str_list = []
   for state in state_list:
     str_list.append("S%d" % state.number)

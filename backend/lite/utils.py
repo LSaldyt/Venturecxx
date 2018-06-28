@@ -99,12 +99,12 @@ def normalizeList(seq):
     return [1.0/n for x in seq]
 
 def simulateCategorical(ps,np_rng,os=None):
-  if os is None: os = range(len(ps))
+  if os is None: os = list(range(len(ps)))
   ps = normalizeList(ps)
   return os[np_rng.multinomial(1,ps).argmax()]
 
 def logDensityCategorical(val,ps,os=None):
-  if os is None: os = range(len(ps))
+  if os is None: os = list(range(len(ps)))
   ps = normalizeList(ps)
   # TODO This should work for Venture Values while the comparison is
   # done by identity and in the absence of observations; do I want to
@@ -180,7 +180,7 @@ def sampleLogCategorical(logs, np_rng, os=None):
     return simulateCategorical([0 for _ in logs], np_rng, os=os)
 
 def logDensityLogCategorical(val,log_ps,os=None):
-  if os is None: os = range(len(log_ps))
+  if os is None: os = list(range(len(log_ps)))
   return logsumexp([log_pi for (log_pi, oi) in zip(log_ps, os) if oi == val]) - logsumexp(log_ps)
 
 def logDensityMVNormal(x, mu, sigma):

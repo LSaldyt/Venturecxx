@@ -231,7 +231,7 @@ class TestSivmUtils(unittest.TestCase):
                 try:
                     i3 = macro_system.sugar_expression_index(a,i2)
                 except:
-                    print msg_string.format(sym,a,s,i2,i1,None)
+                    print(msg_string.format(sym,a,s,i2,i1,None))
                     raise
                 self.assertEqual(i3,i1,msg=msg_string.format(sym,a,s,i2,i1,i3))
     def test_sugar_expression_index_all_cases(self):
@@ -245,7 +245,7 @@ class TestSivmUtils(unittest.TestCase):
                     self.assertIsNotNone(macro_system.sugar_expression_index(a,i),
                             msg=msg_string.format(a,s,i))
                 except:
-                    print msg_string.format(a,s,i)
+                    print(msg_string.format(a,s,i))
                     raise
 
     def test_desugar_expression_index_standard_cases(self):
@@ -261,7 +261,7 @@ class TestSivmUtils(unittest.TestCase):
                 try:
                     i3 = macro_system.desugar_expression_index(a,i1)
                 except:
-                    print msg_string.format(sym,a,s,i1,i2,None)
+                    print(msg_string.format(sym,a,s,i1,i2,None))
                     raise
                 self.assertEqual(i3,i2,msg=msg_string.format(sym,a,s,i1,i2,i3))
     def test_desugar_expression_index_all_cases(self):
@@ -275,9 +275,9 @@ class TestSivmUtils(unittest.TestCase):
                     self.assertIsNotNone(macro_system.desugar_expression_index(a,i),
                             msg=msg_string.format(a,s,i))
                 except VentureException as e:
-                    self.assertEquals(e.exception,'expression_index_desugaring')
+                    self.assertEqual(e.exception,'expression_index_desugaring')
                 except:
-                    print msg_string.format(a,s,i)
+                    print(msg_string.format(a,s,i))
                     raise
 
     def test_validate_instruction_1(self):

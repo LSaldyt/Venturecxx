@@ -95,7 +95,7 @@ class RejectionOperator(InPlaceOperator):
       #   print "Accepted after %d attempts!" % (attempt,)
     if not accept:
       # Ran out of attempts
-      print "Warning: rejection hit attempt bound of %s" % self.trials
+      print("Warning: rejection hit attempt bound of %s" % self.trials)
       regenAndAttach(trace, scaffold, True, self.rhoDB, OrderedDict())
     return trace, 0
 

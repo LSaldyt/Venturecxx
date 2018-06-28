@@ -68,22 +68,22 @@ class Scaffold(object):
     return len(self.regenCounts)
 
   def show(self):
-    print "---Scaffold---"
-    print "# pnodes: " + str(len(self.getPrincipalNodes()))
-    print "# absorbing nodes: " + str(len(self.absorbing))
-    print "# aaa nodes: " + str(len(self.aaa))
-    print "# brush nodes: " + str(len(self.brush))
-    print "border lengths: " + str([len(segment) for segment in self.border])
-    print "# lkernels: " + str(len(self.lkernels))
+    print("---Scaffold---")
+    print("# pnodes: " + str(len(self.getPrincipalNodes())))
+    print("# absorbing nodes: " + str(len(self.absorbing)))
+    print("# aaa nodes: " + str(len(self.aaa)))
+    print("# brush nodes: " + str(len(self.brush)))
+    print("border lengths: " + str([len(segment) for segment in self.border]))
+    print("# lkernels: " + str(len(self.lkernels)))
 
   def showMore(self):
-    print "---Scaffold---"
-    print "pnodes: " + str(self.getPrincipalNodes())
-    print "absorbing nodes: " + str(self.absorbing)
-    print "aaa nodes: " + str(self.aaa)
-    print "brush nodes: " + str(self.brush)
-    print "borders: " + str(self.border)
-    print "lkernels: " + str(self.lkernels)
+    print("---Scaffold---")
+    print("pnodes: " + str(self.getPrincipalNodes()))
+    print("absorbing nodes: " + str(self.absorbing))
+    print("aaa nodes: " + str(self.aaa))
+    print("brush nodes: " + str(self.brush))
+    print("borders: " + str(self.border))
+    print("lkernels: " + str(self.lkernels))
 
 # Calling subsampled_mh may create broken deterministic
 # relationships in the trace.  For example, consider updating mu in the

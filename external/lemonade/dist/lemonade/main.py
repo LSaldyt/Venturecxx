@@ -2,13 +2,13 @@
 Main program file for the LEMON parser generator.
 '''
 
-from build import *
-from exceptions import *
-from parse import *
-from report import *
-from struct import *
+from .build import *
+from .exceptions import *
+from .parse import *
+from .report import *
+from .struct import *
 
-from ccruft import printf
+from .ccruft import printf
 from sys import stderr
 from optparse import OptionParser
 

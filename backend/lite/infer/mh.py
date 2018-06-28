@@ -65,9 +65,9 @@ def mixMH(trace, indexer, operator):
     nodes = index.getPrincipalNodes()
     current = [trace.valueAt(node) for node in nodes]
     getAddr = lambda node: node.address
-    principal = map(getAddr, nodes)
-    absorbing = map(getAddr, index.absorbing)
-    aaa = map(getAddr, index.aaa)
+    principal = list(map(getAddr, nodes))
+    absorbing = list(map(getAddr, index.absorbing))
+    aaa = list(map(getAddr, index.aaa))
     brush = len(index.brush)
 
   rhoMix = indexer.logDensityOfIndex(trace,index)

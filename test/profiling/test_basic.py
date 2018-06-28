@@ -43,17 +43,18 @@ def test_profiling1():
   ripl.infer('(resimulation_mh default one 10)')
   ripl.infer("(gibbs 'tricky one 1)")
 
-  def printAddr((did, index)):
+  def printAddr(xxx_todo_changeme):
+    (did, index) = xxx_todo_changeme
     exp = ripl.sivm._get_exp(did)
     text, indyces = ripl.humanReadable(exp, did, index)
-    print text
-    print underline(indyces)
+    print(text)
+    print(underline(indyces))
 
   data = ripl.profile_data()
 
   assert len(data) == 11
 
-  map(lambda addrs: map(printAddr, addrs), data.principal)
+  [list(map(printAddr, addrs)) for addrs in data.principal]
 
 @broken_in('puma', "Profiler only implemented for Lite")
 @on_inf_prim("none") # Does not test inference quality of anything

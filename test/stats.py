@@ -118,7 +118,7 @@ def repeatTest(func, seed, *args, **kwargs):
     # Hopeless
     return result
   else:
-    print "Retrying suspicious test"
+    print("Retrying suspicious test")
     def trial():
       answer = func(*args, seed=rng.randint(1, 2**31 - 1), **kwargs)
       sys.stdout.write(".")
@@ -372,7 +372,7 @@ def reportKernelTwoSampleTest(X, Y, permutations=None):
   S = np.vstack((X, Y))
 
   # Compute resampled test statistics.
-  for _ in xrange(permutations-1):
+  for _ in range(permutations-1):
       np.random.shuffle(S)
       Xp, Yp = S[:N], S[N:]
       tb = computeGaussianKernelStatistic(Xp, Yp)

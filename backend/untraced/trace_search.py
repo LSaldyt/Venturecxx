@@ -26,6 +26,7 @@ from venture.lite.wttree import PSet
 import venture.lite.inference_sps as inf
 import venture.lite.node as n
 import venture.lite.types as t
+from functools import reduce
 
 def _is_set(thing):
   return isinstance(thing, OrderedFrozenSet) or isinstance(thing, PSet)
@@ -148,7 +149,7 @@ def interpret(prog, trace):
     return (extent(thing, trace), wt)
   # elif isinstance(prog, UnionDict):
   elif isinstance(prog, Union):
-    (sources, weights) = zip(*[interpret(source, trace) for source in prog.sources])
+    (sources, weights) = list(zip(*[interpret(source, trace) for source in prog.sources]))
     return (reduce(union, sources), sum(weights))
   elif isinstance(prog, FetchTag):
     return (trace.scopes[prog.name], 0)
@@ -240,7 +241,7 @@ def as_set(thing):
     return thing
   elif isinstance(thing, SamplableMap):
     ans = OrderedFrozenSet()
-    for _, v in thing.iteritems():
+    for _, v in thing.items():
       ans = ans.union(v)
     return ans
   else:
@@ -250,7 +251,7 @@ def set_fmap(thing, f):
   "Lift an f :: set -> a to accept sets, single nodes (by upgrading), or dictionaries (pointwise)."
   if isinstance(thing, SamplableMap):
     ans = SamplableMap()
-    for k, v in thing.iteritems():
+    for k, v in thing.items():
       ans[k] = f(v)
     return ans
   elif _is_set(thing):
@@ -262,7 +263,7 @@ def set_bind(thing, f):
   "Lift an f :: a -> set b to accept sets (pointwise-union) or dictionaries (pointwise pointwise-union)."
   if isinstance(thing, SamplableMap):
     ans = SamplableMap()
-    for k, v in thing.iteritems():
+    for k, v in thing.items():
       ans[k] = set_bind(v, f)
     return ans
   elif _is_set(thing):
@@ -275,8 +276,8 @@ def set_fmap2(thing1, thing2, f):
 upgrading), or dictionaries (pointwise, cross product if two)."""
   if isinstance(thing1, SamplableMap) and isinstance(thing2, SamplableMap):
     ans = SamplableMap()
-    for k1,v1 in thing1.iteritems():
-      for k2,v2 in thing2.iteritems():
+    for k1,v1 in thing1.items():
+      for k2,v2 in thing2.items():
         ans[(k1, k2)] = f(v1, v2)
     return ans
   elif isinstance(thing2, SamplableMap):

@@ -8,12 +8,12 @@
 
 import string
 import sys
-from sys import maxint
+from sys import maxsize
 from types import TupleType
 
-from Transitions import TransitionMap
+from .Transitions import TransitionMap
 
-LOWEST_PRIORITY = -sys.maxint
+LOWEST_PRIORITY = -sys.maxsize
 
 class Machine:
   """A collection of Nodes representing an NFA or DFA."""
@@ -54,7 +54,7 @@ class Machine:
     file.write("Plex.Machine:\n")
     if self.initial_states is not None:
       file.write("   Initial states:\n")
-      for (name, state) in self.initial_states.items():
+      for (name, state) in list(self.initial_states.items()):
         file.write("      '%s': %d\n" % (name, state.number))
     for s in self.states:
       s.dump(file)
@@ -150,13 +150,13 @@ class FastMachine:
       for old_state in old_machine.states:
         new_state = self.new_state()
         old_to_new[old_state] = new_state
-      for name, old_state in old_machine.initial_states.items():
+      for name, old_state in list(old_machine.initial_states.items()):
         initial_states[name] = old_to_new[old_state]
       for old_state in old_machine.states:
         new_state = old_to_new[old_state]
-        for event, old_state_set in old_state.transitions.items():
+        for event, old_state_set in list(old_state.transitions.items()):
           if old_state_set:
-            new_state[event] = old_to_new[old_state_set.keys()[0]]
+            new_state[event] = old_to_new[list(old_state_set.keys())[0]]
           else:
             new_state[event] = None
         new_state['action'] = old_state.action
@@ -182,7 +182,7 @@ class FastMachine:
       code0, code1 = event
       if code0 == -maxint:
         state['else'] = new_state
-      elif code1 <> maxint:
+      elif code1 != maxint:
         while code0 < code1:
           state[chr(code0)] = new_state
           code0 = code0 + 1
@@ -195,7 +195,7 @@ class FastMachine:
   def dump(self, file):
     file.write("Plex.FastMachine:\n")
     file.write("   Initial states:\n")
-    for name, state in self.initial_states.items():
+    for name, state in list(self.initial_states.items()):
       file.write("      %s: %s\n" % (repr(name), state['number']))
     for state in self.states:
       self.dump_state(state, file)
@@ -214,7 +214,7 @@ class FastMachine:
   def dump_transitions(self, state, file):
     chars_leading_to_state = {}
     special_to_state = {}
-    for (c, s) in state.items():
+    for (c, s) in list(state.items()):
       if len(c) == 1:
         chars = chars_leading_to_state.get(id(s), None)
         if chars is None:
@@ -229,7 +229,7 @@ class FastMachine:
       if char_list:
         ranges = self.chars_to_ranges(char_list)
         ranges_to_state[ranges] = state
-    ranges_list = ranges_to_state.keys()
+    ranges_list = list(ranges_to_state.keys())
     ranges_list.sort()
     for ranges in ranges_list:
       key = self.ranges_to_string(ranges)
@@ -256,9 +256,10 @@ class FastMachine:
     return tuple(result)
   
   def ranges_to_string(self, range_list):
-    return string.join(map(self.range_to_string, range_list), ",")
+    return string.join(list(map(self.range_to_string, range_list)), ",")
   
-  def range_to_string(self, (c1, c2)):
+  def range_to_string(self, xxx_todo_changeme):
+    (c1, c2) = xxx_todo_changeme
     if c1 == c2:
       return repr(c1)
     else:

@@ -31,7 +31,7 @@ def constructAncestorPath(ancestorIndices,t,n):
   if t > 0: path = [ancestorIndices[t][n]]
   else: path = []
 
-  for i in reversed(range(1,t)): path.insert(0, ancestorIndices[i][path[0]])
+  for i in reversed(list(range(1,t))): path.insert(0, ancestorIndices[i][path[0]])
   assert len(path) == t
   return path
 
@@ -43,7 +43,7 @@ def restoreAncestorPath(trace,border,scaffold,omegaDBs,t,path):
 
 # detach the rest of the particle
 def detachRest(trace,border,scaffold,t):
-  for i in reversed(range(t)):
+  for i in reversed(list(range(t))):
     detachAndExtractAtBorder(trace,border[i],scaffold)
 
 
@@ -71,7 +71,7 @@ class PGibbsOperator(object):
     self.omegaDBs = omegaDBs
     self.ancestorIndices = ancestorIndices
 
-    for t in reversed(range(T)):
+    for t in reversed(list(range(T))):
       (rhoWeights[t],omegaDBs[t][P]) = detachAndExtractAtBorder(trace,scaffold.border[t],scaffold)
 
     assertTorus(scaffold)
@@ -160,7 +160,7 @@ class ParticlePGibbsOperator(object):
     rhoDBs = [None for t in range(T)]
     rhoWeights = [None for t in range(T)]
 
-    for t in reversed(range(T)):
+    for t in reversed(list(range(T))):
       rhoWeights[t],rhoDBs[t] = detachAndExtractAtBorder(trace,scaffold.border[t],scaffold)
 
     assertTorus(scaffold)

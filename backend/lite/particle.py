@@ -72,7 +72,7 @@ class Particle(Trace):
     # (2) Maps to things that change outside of particle methods
     self.madeSPAuxs = OrderedDict(
       (node, spaux.copy())
-      for node, spaux in particle.madeSPAuxs.iteritems())
+      for node, spaux in particle.madeSPAuxs.items())
 
   def initFromTrace(self, trace):
     self.base = trace
@@ -297,8 +297,8 @@ class Particle(Trace):
     for node in self.rcs: self.base.rcs.add(node)
 
     # this iteration includes "default"
-    for (scope, blocks) in self.scopes.iteritems():
-      for (block, pnodes) in blocks.iteritems():
+    for (scope, blocks) in self.scopes.items():
+      for (block, pnodes) in blocks.items():
         for pnode in pnodes:
           self.base.registerRandomChoiceInScope(scope, block, pnode,
                                                 unboxed=True)
@@ -309,25 +309,25 @@ class Particle(Trace):
 
     for node in self.aes: self.base.registerAEKernel(node)
 
-    for (node, value) in self.values.iteritems():
+    for (node, value) in self.values.items():
       assert value is not None
       self.base.setValueAt(node, value)
 
-    for (node, madeSP) in self.madeSPs.iteritems():
+    for (node, madeSP) in self.madeSPs.items():
       self.base.setMadeSPRecordAt(node, VentureSPRecord(madeSP))
 
 
 
-    for (node, esrParents) in self.esrParents.iteritems():
+    for (node, esrParents) in self.esrParents.items():
       self.base.setEsrParentsAt(node, esrParents)
-    for (node, numRequests) in self.numRequests.iteritems():
+    for (node, numRequests) in self.numRequests.items():
       self.base.setNumRequestsAt(node, numRequests)
-    for (node, newMadeSPFamilies) in self.newMadeSPFamilies.iteritems():
+    for (node, newMadeSPFamilies) in self.newMadeSPFamilies.items():
       self.base.addNewMadeSPFamilies(node, newMadeSPFamilies)
-    for (node, newChildren) in self.newChildren.iteritems():
+    for (node, newChildren) in self.newChildren.items():
       self.base.addNewChildren(node, newChildren)
 
-    for (node, spaux) in self.madeSPAuxs.iteritems():
+    for (node, spaux) in self.madeSPAuxs.items():
       self.base.setMadeSPAuxAt(node, spaux)
 
   # untested

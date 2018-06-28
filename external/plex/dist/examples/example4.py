@@ -32,7 +32,7 @@ scanner = Scanner(lexicon, f, filename)
 scanner.nesting_level = 0
 while 1:
   token = scanner.read()
-  print token
+  print(token)
   if token[0] is None:
     break
 

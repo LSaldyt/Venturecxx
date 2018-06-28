@@ -83,7 +83,7 @@ def timings(f, verbose=False, acceptable_duration=10, desired_sample_ct=20):
     n = try_next(n)
     thunk = f(n)
     if verbose:
-      print "Trying %s" % n
+      print("Trying %s" % n)
     start = time.clock()
     thunk()
     end = time.clock()
@@ -91,7 +91,7 @@ def timings(f, verbose=False, acceptable_duration=10, desired_sample_ct=20):
     now = end
   if verbose:
     for (n, t) in answer:
-      print "%s took %s s" % (n, t)
+      print("%s took %s s" % (n, t))
   return answer
 
 # :: (Integer -> (() -> a)) -> (Integer,Time)
@@ -119,7 +119,7 @@ def min_measurable_input(f):
 def assertNLogNTime(f, slack=2, verbose=False):
   times = timings(f)
   if verbose:
-    print times
+    print(times)
   while times[0][0] <= 1:
     # This case would cause the below to throw a divide by zero
     times = times[1:]

@@ -52,6 +52,6 @@ def assign_shapes(data, aes):
             lambda x: shape_mapping[x])
 
         legend_entry = {'column_name': shape_col,
-                  'dict': dict((v, k) for k, v in shape_mapping.items()),
+                  'dict': dict((v, k) for k, v in list(shape_mapping.items())),
                   'scale_type': "discrete"}
     return data, legend_entry

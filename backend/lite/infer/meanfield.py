@@ -55,7 +55,7 @@ class MeanfieldOperator(object):
       gradients = OrderedDict()
       gain = regenAndAttach(trace,scaffold,False,OmegaDB(),gradients)
       detachAndExtract(trace,scaffold)
-      for node,lkernel in scaffold.lkernels.iteritems():
+      for node,lkernel in scaffold.lkernels.items():
         if isinstance(lkernel,VariationalLKernel):
           assert node in gradients
           lkernel.updateParameters(gradients[node],gain,self.stepSize)

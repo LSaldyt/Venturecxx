@@ -30,7 +30,7 @@ from venture.test.config import on_inf_prim
 from venture.test.randomized import * # Importing many things, which are closely related to what this is trying to do pylint: disable=wildcard-import, unused-wildcard-import
 import venture.value.dicts as v
 
-from test_sps import relevantSPs
+from .test_sps import relevantSPs
 
 @on_inf_prim("none")
 def testExpressionFor():

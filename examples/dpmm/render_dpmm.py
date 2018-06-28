@@ -51,7 +51,7 @@ def remap_by_rep_count(items):
             rep_counts[item] += 1
         else:
             rep_counts[item] = 1
-    uniq = rep_counts.keys()
+    uniq = list(rep_counts.keys())
     # The sorted list of unique elements of items is (by assumption)
     # the identity permutation.
     remapping = inverse(sorted(uniq, key=rep_counts.__getitem__, reverse=True))
@@ -85,7 +85,7 @@ def render_dpmm(lw_trace, row_names=None, col_names=None, selected_rows=None,
     ax.imshow(data, interpolation='None', cmap="YlGn", aspect='auto',
               vmin=np.percentile(data[:], 1), vmax=np.percentile(data[:], 99))
 
-    ax.set_yticks(range(num_rows))
+    ax.set_yticks(list(range(num_rows)))
     if row_names is None:
         row_names = list(range(num_rows))
     row_names = np.array(row_names)
@@ -96,11 +96,11 @@ def render_dpmm(lw_trace, row_names=None, col_names=None, selected_rows=None,
     if show_assignments:
         assign_ticks = ax.twinx()
         assign_ticks.set_ylim([-0.5, num_rows-0.5])
-        assign_ticks.set_yticks(range(num_rows))
+        assign_ticks.set_yticks(list(range(num_rows)))
         assign_ticks.set_yticklabels(np.sort(assignments))
         assign_ticks.set_ylabel("Cluster assignments z(i)")
 
-    ax.set_xticks(range(num_cols))
+    ax.set_xticks(list(range(num_cols)))
     if col_names is None:
         col_names = list(range(num_cols))
     col_names = np.array(col_names)
@@ -111,7 +111,7 @@ def render_dpmm(lw_trace, row_names=None, col_names=None, selected_rows=None,
     if show_V:
         hyper_labels = ax.twiny()
         hyper_labels.set_xlim([-0.5, num_cols-0.5])
-        hyper_labels.set_xticks(range(num_cols))
+        hyper_labels.set_xticks(list(range(num_cols)))
         labels = ["V(%02d) = %.3f" % (i, v) for (i, v) in enumerate(lw_trace["V"])]
         hyper_labels.set_xticklabels(labels, rotation='vertical')
         if "alpha" in lw_trace:

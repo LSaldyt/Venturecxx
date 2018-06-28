@@ -97,11 +97,11 @@ def dispatch_arguments(trace, args):
     (scope, block, transitions, extra) = parse_arguments(trace, args)
     if block == "each":
       the_scope = trace.getScope(scope)
-      blocks = the_scope.keys()
+      blocks = list(the_scope.keys())
       return ([BlockScaffoldIndexer(scope, b) for b in blocks], transitions, extra)
     elif block == "each_reverse":
       the_scope = trace.getScope(scope)
-      blocks = the_scope.keys()[::-1]
+      blocks = list(the_scope.keys())[::-1]
       return ([BlockScaffoldIndexer(scope, b) for b in blocks], transitions, extra)
     else:
       return ([BlockScaffoldIndexer(scope, block)], transitions, extra)

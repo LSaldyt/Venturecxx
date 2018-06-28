@@ -21,7 +21,7 @@ f = open(filename, "r")
 scanner = Scanner(lexicon, f, filename)
 while 1:
   token = scanner.read()
-  print token
+  print(token)
   if token[0] is None:
     break
 

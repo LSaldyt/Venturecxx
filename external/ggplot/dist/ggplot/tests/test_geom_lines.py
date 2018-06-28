@@ -134,7 +134,7 @@ def test_geom_festival_of_lines():
     # All 3 lines should intersect at the point of the same color.
     # Horizontal and vertical will overlap for points on the same line
     df = _build_line_df()
-    df['color'] = range(len(df['wt']))
+    df['color'] = list(range(len(df['wt'])))
     def xfunc(x):
         return x
     def yfunc(y):

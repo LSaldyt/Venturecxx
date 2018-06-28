@@ -52,7 +52,7 @@ class HMMSPAux(SPAux):
   def copy(self):
     ans = HMMSPAux()
     ans.xs = copy(self.xs)
-    ans.os = OrderedDict((k, copy(v)) for k, v in self.os.iteritems())
+    ans.os = OrderedDict((k, copy(v)) for k, v in self.os.items())
     return ans
 
 class MakeUncollapsedHMMOutputPSP(RandomPSP):

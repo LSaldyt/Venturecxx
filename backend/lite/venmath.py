@@ -46,6 +46,7 @@ from venture.lite.utils import logsumexp
 
 import venture.lite.types as t
 import venture.lite.value as v
+from functools import reduce
 
 def vvsum(venture_array):
   # TODO Why do the directions come in and out as Venture Values

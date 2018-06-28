@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Venture.  If not, see <http://www.gnu.org/licenses/>.
 
-from StringIO import StringIO
+from io import StringIO
 import re
 import sys
 
@@ -44,12 +44,12 @@ def assert_error_message_contains(text, f, *args, **kwargs):
   if text in message:
     pass # OK
   else:
-    print "Did not find pattern"
-    print text
-    print "in"
+    print("Did not find pattern")
+    print(text)
+    print("in")
     import traceback
-    print traceback.format_exc()
-    print cm.exception
+    print(traceback.format_exc())
+    print(cm.exception)
     assert text in message
 
 def assert_print_output_contains(text, f, *args, **kwargs):

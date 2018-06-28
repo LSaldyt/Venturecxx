@@ -34,9 +34,9 @@ class Trace(object):
   def __init__(self, seed):
     self.results = {}
     self.env = env.VentureEnvironment()
-    for name, val in builtin.builtInValues().iteritems():
+    for name, val in builtin.builtInValues().items():
       self.bindPrimitiveName(name, val)
-    for name, sp in builtin.builtInSPs().iteritems():
+    for name, sp in builtin.builtInSPs().items():
       self.bindPrimitiveSP(name, sp)
     self.sealEnvironment() # New frame so users can shadow globals
 

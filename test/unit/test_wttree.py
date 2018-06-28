@@ -83,7 +83,7 @@ def testPMapIterate():
     r = r.insert(_hash(i), i)
 
   xs = dict()
-  for (k,v) in r.iteritems(): xs[k] = v
+  for (k,v) in r.items(): xs[k] = v
 
   for i in range(N):
     assert xs[_hash(i)] == i
@@ -165,19 +165,19 @@ def testPMapKey():
   r = r.delete(Lose(50))
   r = r.adjust(Lose(54), lambda s: s.replace('moose', 'eland'))
   it = iter(r)
-  x = it.next()
+  x = next(it)
   assert isinstance(x, Lose)
   assert x.value == 42
-  x = it.next()
+  x = next(it)
   assert isinstance(x, Lose)
   assert x.value == 54
-  it = r.iteritems()
-  x = it.next()
+  it = iter(r.items())
+  x = next(it)
   assert len(x) == 2
   assert isinstance(x[0], Lose)
   assert x[0].value == 42
   assert x[1] == 'quagga'
-  x = it.next()
+  x = next(it)
   assert len(x) == 2
   assert isinstance(x[0], Lose)
   assert x[0].value == 54

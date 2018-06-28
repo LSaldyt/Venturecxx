@@ -3,9 +3,9 @@ Python module for color functions.
 
 """
 
-from __future__ import division
-from __future__ import print_function
-from __future__ import with_statement
+
+
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -63,12 +63,11 @@ class SMeta(type):
             cache[key] = obj
         return obj
 
-class ColorModel(object):
+class ColorModel(object, metaclass=SMeta):
     """
     Color Model base class.
     Note that this is generated as "singleton" - only one object of each class.
     """
-    __metaclass__ = SMeta
     limits =  np.tile(np.array([0.,1.]),(3,1))
     range = limits.copy()
     @classmethod
@@ -259,7 +258,7 @@ class ColorModel(object):
         This just covers a set of default checks from my old IDL
         routines.
         """
-        for i in xrange(3):
+        for i in range(3):
             if cls.limits[i,1] > 1 and limits[i,1] <= 1:
                 return False
             if cls.limits[i,1] <= 1 and limits[i,1] > cls.limits[i,1]:
@@ -1656,7 +1655,7 @@ _colors = dict()
 def register_color(name, color):
     assert isinstance(name, str)
     assert isinstance(color, Color)
-    assert not _colors.has_key(name)
+    assert name not in _colors
     _colors[name] = color
 
 def get_cfunc(name):
@@ -1748,12 +1747,12 @@ class ColorMap(Color):
         else:
             n = map.shape[0]
             coord = np.ndarray((n, ncoord))
-            for i in xrange(ncoord):
+            for i in range(ncoord):
                 coord[:,i] = map[:,ipos]
                 ipos = layout.find('X', ipos + 1)
         if coord.dtype is not np.float64:
             coord = np.array(coord, dtype = np.float64)
-        for j in xrange(ncoord):
+        for j in range(ncoord):
             ii = coord[:,j] >= 0
             i, = np.where(ii)
             coord[ii,j] -= coord[i[0],j]
@@ -1825,13 +1824,13 @@ class ColorMap(Color):
         else:
             color = np.ndarray((n,3))
             ipos = -1
-            for i in xrange(3):
+            for i in range(3):
                 ipos = layout.find('C', ipos + 1)
                 color[:,i] = map[:,ipos]
         # normalize
         # 1) auto-detect
         d = dict()
-        for i in xrange(n):
+        for i in range(n):
             if normal[i] is None:
                 m = model[i]
                 c = color[i]
@@ -1842,10 +1841,10 @@ class ColorMap(Color):
                 except:
                     limits = np.tile(c,(2,1)).transpose()
                 d[m] = limits
-        for m,l in d.items():    
+        for m,l in list(d.items()):    
             d[m] = not m.is_normal(l)
         # 2) do normalization
-        for i in xrange(n):
+        for i in range(n):
             m = model[i]
             if normal[i] is None:
                 normal[i] = d[m]
@@ -1892,14 +1891,14 @@ class ColorMap(Color):
         if ng == 3:
             gamma = np.ndarray((n,4), dtype = map.dtype)
             ipos = -1
-            for i in xrange(3):
+            for i in range(3):
                 ipos = layout.find('G', ipos + 1)
                 gamma[:,i] = map[:,ipos]
             gamma[:,3] = np.tile(1., n)    
         if ng == 4:
             gamma = np.ndarray((n,4), dtype = map.dtype)
             ipos = -1
-            for i in xrange(4):
+            for i in range(4):
                 ipos = layout.find('G', ipos + 1)
                 gamma[:,i] = map[:,ipos]        
 
@@ -1937,7 +1936,7 @@ class ColorMap(Color):
             # use np.piecwise instead?
             color0 = self.color[0,:]
             coord0 = coord[0,0]
-            for i in xrange(1, self.n):
+            for i in range(1, self.n):
                 if self.model[i-1] != self.model[i]:
                     color0[0:3] = self.model[i].inverse()(self.model[i-1](color0[0:3]))
                 color1 = self.color[i,:]
@@ -1948,7 +1947,7 @@ class ColorMap(Color):
                         dcolor = color1 - color0
                         dcoord = coord1 - coord0
                         colcoord = (data[ind] - coord0) / dcoord
-                        for j in xrange(4):
+                        for j in range(4):
                             out[ind,j] = color0[j] + self.gamma[i,j](colcoord)*dcolor[j]
                         if self.model[i] != _color_models['RGB']:
                             out[ind,0:3] = self.model[i](out[ind,0:3])
@@ -1956,10 +1955,10 @@ class ColorMap(Color):
                 coord0 = coord1
         else:
             assert np.all(self.model[0] == self.model[:]),'All color models need to be equal if using independent coordinates'
-            for j in xrange(4):
+            for j in range(4):
                 coord0 = coord[0, j]
                 color0 = self.color[0,j]
-                for i in xrange(1, self.n):
+                for i in range(1, self.n):
                     color1 = self.color[i,j]
                     coord1 = coord[i, j]
                     if coord0 < coord1: # allow discontinuous maps
@@ -1985,7 +1984,7 @@ class ColorMap(Color):
                 len(colors[0]) == 2 and 
                 not is_string_like(colors[0])):
                 # List of value, color pairs
-                vals, colors = zip(*colors)
+                vals, colors = list(zip(*colors))
             else:
                 vals = np.linspace(0., 1., len(colors))            
             map = np.ndarray([[val] + list(colorConverter.to_rgba(color)) for val, color in zip(vals, colors)])
@@ -2022,7 +2021,7 @@ class ColorMap(Color):
                 raise ValueError("data mapping points must have x in increasing order")
             # end copy
             xc = [[x[0], y1[0]]]
-            for i in xrange(1,shape[0]-1):
+            for i in range(1,shape[0]-1):
                 xc += [[x[i], y0[i]]]
                 if y0[i] != y1[i]:
                     xc += [[x[i], y1[i]]]

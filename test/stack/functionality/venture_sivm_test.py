@@ -120,7 +120,7 @@ class TestVentureSivm(unittest.TestCase):
         val = v.number(3)
         o = self.sivm.execute_instruction(inst)
         self.assertIsInstance(o['directive_id'],(int,float))
-        self.assertEquals(o['value'],val)
+        self.assertEqual(o['value'],val)
     def test_labeled_observe(self):
         inst = {
                 'instruction':'labeled_observe',
@@ -139,7 +139,7 @@ class TestVentureSivm(unittest.TestCase):
         val = v.number(3)
         o = self.sivm.execute_instruction(inst)
         self.assertIsInstance(o['directive_id'],(int,float))
-        self.assertEquals(o['value'],val)
+        self.assertEqual(o['value'],val)
     def test_labeled_forget(self):
         inst1 = {
                 'instruction':'labeled_predict',
@@ -155,9 +155,9 @@ class TestVentureSivm(unittest.TestCase):
         try:
             self.sivm.execute_instruction(inst2)
         except VentureException as e:
-            self.assertEquals(e.exception,'invalid_argument')
+            self.assertEqual(e.exception,'invalid_argument')
         o3 = self.sivm.list_directives()
-        self.assertEquals(o3, [])
+        self.assertEqual(o3, [])
     def test_labeled_report(self):
         inst1 = {
                 'instruction':'labeled_predict',
@@ -170,7 +170,7 @@ class TestVentureSivm(unittest.TestCase):
                 'label' : v.symbol('moo'),
                 }
         o2 = self.sivm.execute_instruction(inst2)
-        self.assertEquals(o2['value'], v.number(3))
+        self.assertEqual(o2['value'], v.number(3))
     def test_list_directives(self):
         inst1 = {
                 'instruction':'predict',
@@ -179,7 +179,7 @@ class TestVentureSivm(unittest.TestCase):
         o1 = self.sivm.execute_instruction(inst1)
         inst1['directive_id'] = o1['directive_id']
         o2 = self.sivm.list_directives()
-        self.assertEquals(o2, [inst1])
+        self.assertEqual(o2, [inst1])
     def test_get_directive(self):
         inst1 = {
                 'instruction':'predict',
@@ -188,7 +188,7 @@ class TestVentureSivm(unittest.TestCase):
         o1 = self.sivm.execute_instruction(inst1)
         inst1['directive_id'] = o1['directive_id']
         o2 = self.sivm.get_directive(o1['directive_id'])
-        self.assertEquals(o2, inst1)
+        self.assertEqual(o2, inst1)
     def test_labeled_get_directive(self):
         inst1 = {
                 'instruction':'labeled_predict',
@@ -204,7 +204,7 @@ class TestVentureSivm(unittest.TestCase):
                 'expression': [v.symbol('add'),v.number(1),v.number(2)],
                 'label': v.symbol('moo'),
                 }
-        self.assertEquals(o2, output)
+        self.assertEqual(o2, output)
     def test_force(self):
         inst = {
                 'instruction':'force',
@@ -213,7 +213,7 @@ class TestVentureSivm(unittest.TestCase):
                 }
         self.sivm.execute_instruction(inst)
         o2 = self.sivm.list_directives()
-        self.assertEquals(o2, [])
+        self.assertEqual(o2, [])
     def test_sample(self):
         inst = {
                 'instruction':'sample',
@@ -221,6 +221,6 @@ class TestVentureSivm(unittest.TestCase):
                 }
         val = v.number(3)
         o = self.sivm.execute_instruction(inst)
-        self.assertEquals(o['value'],val)
+        self.assertEqual(o['value'],val)
         o2 = self.sivm.list_directives()
-        self.assertEquals(o2, [])
+        self.assertEqual(o2, [])

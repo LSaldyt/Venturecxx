@@ -34,7 +34,7 @@ class geom_tile(geom):
         # Was the fill specified in geom wrapper only? (i.e. not in ggplot)
         if 'fill' in self.aes_unique_to_geom:
             # Determine if there are non-numeric values.
-            if False in [isinstance(v, (int, long, float, complex)) for v in set(fill)]:
+            if False in [isinstance(v, (int, float, complex)) for v in set(fill)]:
                 # No need to handle this case. Instruct the user to put categorical
                 # values in the ggplot wrapper.
                 raise Exception('For categorical fill values specify fill in the ggplot aes instead of the geom_tile aes.')
@@ -57,8 +57,8 @@ class geom_tile(geom):
             {'x': x, 'y': y, 'fill': fill}).set_index(['x', 'y']).unstack(0)
 
         # Setup axes.
-        x_ticks   = range(2*len(set(x)) + 1)
-        y_ticks   = range(2*len(set(y)) + 1)
+        x_ticks   = list(range(2*len(set(x)) + 1))
+        y_ticks   = list(range(2*len(set(y)) + 1))
 
         x_indices = sorted(set(x))
         y_indices = sorted(set(y))
@@ -71,9 +71,9 @@ class geom_tile(geom):
 
         # Plot grid.
         on_y = y_start
-        for yi in xrange(len(y_indices)):
+        for yi in range(len(y_indices)):
             on_x = x_start
-            for xi in xrange(len(x_indices)):
+            for xi in range(len(x_indices)):
                 color = df.iloc[yi,xi]
                 if not isinstance(color, float):
                     ax.add_patch(Rectangle((on_x, on_y), x_step, y_step, facecolor=color))

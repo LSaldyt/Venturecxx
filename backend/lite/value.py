@@ -35,6 +35,7 @@ from venture.lite.typing import TYPE_CHECKING
 from venture.lite.utils import ensure_python_float
 import venture.lite.ensure_numpy as enp
 import venture.value.dicts as v
+from functools import reduce
 
 if TYPE_CHECKING:
   from venture.lite.types import VentureType # Pylint doesn't understand type comments pylint: disable=unused-import
@@ -274,7 +275,7 @@ class VentureInteger(VentureValue):
   __slots__ = ('number',)
   def __init__(self,number):
     # type: (Union[int, long, float]) -> None
-    assert isinstance(number, (int, long, float))
+    assert isinstance(number, (int, float))
     self.number = int(number)
   def __repr__(self):
     if hasattr(self, "number"):
@@ -555,12 +556,13 @@ class VentureNil(VentureValue):
 
 class VenturePair(VentureValue):
   __slots__ = ('first', 'rest')
-  def __init__(self,(first,rest)):
+  def __init__(self, xxx_todo_changeme):
     # type: (Tuple[Union[int, VentureValue], Union[int, VentureValue]]) -> None
     # TODO Maybe I need to be careful about tangent and cotangent
     # spaces after all.  A true pair needs to have a venture value
     # inside; a pair that represents the cotangent of something needs
     # to have cotangents; but cotangents permit symbolic zeros.
+    (first,rest) = xxx_todo_changeme
     if first != 0: assert isinstance(first, VentureValue)
     if rest != 0:  assert isinstance(rest, VentureValue)
     self.first = first
@@ -1038,14 +1040,14 @@ class VentureDict(VentureValue):
 
   def asStackDict(self, _trace=None):
     return v.dict([(key.asStackDict(_trace), val.asStackDict(_trace))
-                   for (key, val) in self.dict.items()])
+                   for (key, val) in list(self.dict.items())])
   @staticmethod
   def fromStackDict(thing):
     f = VentureValue.fromStackDict
     return VentureDict(OrderedDict((f(key), f(val)) for (key, val) in thing["value"]))
 
   def equalSameType(self, other):
-    return len(set(self.dict.iteritems()) ^ set(other.dict.iteritems())) == 0
+    return len(set(self.dict.items()) ^ set(other.dict.items())) == 0
 
   def lookup(self, key):
     return self.dict[key]
@@ -1054,7 +1056,7 @@ class VentureDict(VentureValue):
   def size(self): return len(self.dict)
 
   def expressionFor(self):
-    (keys, vals) = zip(*self.dict.iteritems())
+    (keys, vals) = list(zip(*iter(self.dict.items())))
     return [v.symbol("dict"),
             [v.symbol("list")] + [key.expressionFor() for key in keys],
             [v.symbol("list")] + [val.expressionFor() for val in vals]]

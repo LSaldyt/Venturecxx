@@ -91,9 +91,9 @@ comment syntaxes obey this convention.
     comments = _comment_syntax(fname)
   if comments is None:
     # Initially, assume unknown comment syntax
-    print "Unknown comment syntax", fname
+    print("Unknown comment syntax", fname)
   elif comments == "skip":
-    print "Skipping", fname
+    print("Skipping", fname)
   else:
     (detect_comments, make_comments) = comments
     with open(fname) as f:
@@ -102,9 +102,9 @@ comment syntaxes obey this convention.
     correct = Corrector(parse)
     if parse.no_header():
       if any("opyright" in l for l in lines):
-        print "Misparsed header", fname
+        print("Misparsed header", fname)
       else:
-        print "CHANGE by inserting copyright header", fname
+        print("CHANGE by inserting copyright header", fname)
         with open(fname, "w") as fw:
           yearstring = correct.proper_year_string(fname)
           parse.write_better(fw, correct.proper_header(make_comments, yearstring))
@@ -114,12 +114,12 @@ comment syntaxes obey this convention.
       if desired == parse.raw_header():
         pass
       else:
-        print "CHANGE by correcting copyright header", fname
+        print("CHANGE by correcting copyright header", fname)
         with open(fname, "w") as fw:
           parse.write_better(fw, desired)
     else:
       # This requires attention
-      print "Other header  ", fname
+      print("Other header  ", fname)
 
 
 def repeated_character_comment_syntax(char, min_count, preferred_count):

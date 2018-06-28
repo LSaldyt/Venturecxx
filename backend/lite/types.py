@@ -505,7 +505,7 @@ Caveat:
     if isinstance(thing, dict):
       return vv.VentureDict(OrderedDict(
         [(self.asVentureValue(key), self.asVentureValue(val))
-         for (key, val) in thing.iteritems()]))
+         for (key, val) in thing.items()]))
     if hasattr(thing, "__getitem__"): # Already not a string
       return vv.VentureArray([self.asVentureValue(val) for val in thing])
     if isinstance(thing, vv.VentureValue):
@@ -531,7 +531,7 @@ Caveat:
       return [self.asPython(val) for val in thing.getArray()]
     if isinstance(thing, vv.VentureDict):
       return OrderedDict([(self.asPython(key), self.asPython(val))
-         for (key, val) in thing.dict.iteritems()])
+         for (key, val) in thing.dict.items()])
     if thing.isValidCompoundForm():
       return thing.asPythonList(self)
     return thing
@@ -554,15 +554,15 @@ class HomogeneousDictType(VentureType):
   def asVentureValue(self, thing):
     return vv.VentureDict(OrderedDict([(self.keytype.asVentureValue(key),
                                  self.valtype.asVentureValue(val))
-                                for (key, val) in thing.iteritems()]))
+                                for (key, val) in thing.items()]))
   def asPython(self, vthing):
     return OrderedDict([(self.keytype.asPython(key),
                   self.valtype.asPython(val))
-                 for (key, val) in vthing.getDict().iteritems()])
+                 for (key, val) in vthing.getDict().items()])
   def __contains__(self, vthing):
     return isinstance(vthing, vv.VentureDict) \
       and all([key in self.keytype and val in self.valtype
-               for (key,val) in vthing.getDict().iteritems()])
+               for (key,val) in vthing.getDict().items()])
   def __eq__(self, other):
     return type(self) == type(other) \
       and self.keytype == other.keytype and self.valtype == other.valtype

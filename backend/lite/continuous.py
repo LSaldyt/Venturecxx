@@ -18,7 +18,7 @@
 # For some reason, pylint can never find numpy members (presumably metaprogramming).
 # pylint: disable=no-member
 
-from __future__ import division
+
 
 import math
 import warnings
@@ -167,7 +167,7 @@ class InverseWishartOutputPSP(RandomPSP):
 
     try:
       chol = np.linalg.cholesky(lmbda)
-    except np.linalg.linalg.LinAlgError, e:
+    except np.linalg.linalg.LinAlgError as e:
       raise VentureValueError(e)
 
     # use matlab's heuristic for choosing between the two different sampling schemes
@@ -255,7 +255,7 @@ class WishartOutputPSP(RandomPSP):
 
     try:
       chol = np.linalg.cholesky(sigma)
-    except np.linalg.linalg.LinAlgError, e:
+    except np.linalg.linalg.LinAlgError as e:
       raise VentureValueError(e)
 
     # Use Matlab's heuristic for choosing between the two different sampling schemes.

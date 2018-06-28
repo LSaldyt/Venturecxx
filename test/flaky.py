@@ -17,7 +17,7 @@
 
 def flaky(f):
     def flaky_f(*args, **kwargs):
-        for trial in xrange(2):
+        for trial in range(2):
             try:
                 x = f(*args, **kwargs)
             except Exception:

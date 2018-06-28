@@ -10,7 +10,7 @@ class scale(object):
         if args:
             self.name = args[0]
 
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             if k in self.VALID_SCALES:
                 setattr(self, k, v)
 

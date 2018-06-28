@@ -36,7 +36,7 @@ def test_theme3():
 def test_theme4():
     # Incomplete theme should have the default theme plus additinal theme
     # elements.
-    print(simple_gg + theme(axis_text=element_text(color="red", size=50, angle=90)))
+    print((simple_gg + theme(axis_text=element_text(color="red", size=50, angle=90))))
 
 def test_theme5():
     # complete theme t2 replaces partial theme t2
@@ -65,17 +65,17 @@ gg = ggplot(aes(x='mpg', y='wt'), data=mtcars) + geom_point()
 
 @image_comparison(["general_first"], tol=13)
 def test_theme8():
-    print(simple_gg +
+    print((simple_gg +
           theme(text=element_text(color="red", size=50, angle=45)) +
           theme(axis_text_y=element_text(color="green")) +
-          theme(axis_title=element_text(color="blue")))
+          theme(axis_title=element_text(color="blue"))))
 
 @image_comparison(["general_last"], tol=13)
 def test_theme9():
-    print(simple_gg +
+    print((simple_gg +
           theme(axis_text_y=element_text(color="green")) +
           theme(axis_title=element_text(color="blue")) +
-          theme(text=element_text(color="red", size=50, angle=-45)))
+          theme(text=element_text(color="red", size=50, angle=-45))))
 
 def test_theme10():
     assert_raises(TypeError, lambda: theme() + gg)

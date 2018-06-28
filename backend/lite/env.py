@@ -44,7 +44,7 @@ class VentureEnvironment(VentureValue, tp.Generic[T]):
         assert isinstance(sym, str)
     if ids is not None and nodes is not None:
       assert len(ids) == len(nodes)
-      self.frame.update(zip(ids,nodes))
+      self.frame.update(list(zip(ids,nodes)))
 
   def addBinding(self,sym,val):
     # type: (str, T) -> None
@@ -109,9 +109,9 @@ class VentureEnvironment(VentureValue, tp.Generic[T]):
   # TODO Define contains to check whether the symbol is there (without throwing exceptions)
 
   def printEnv(self):
-    print "-- Frame --"
-    for (k, v) in self.frame.iteritems():
-      print k, v
+    print("-- Frame --")
+    for (k, v) in self.frame.items():
+      print(k, v)
     if self.outerEnv is not None and self.outerEnv.outerEnv is not None:
       # Skip the top frame, which is presumably the global environment
       self.outerEnv.printEnv()

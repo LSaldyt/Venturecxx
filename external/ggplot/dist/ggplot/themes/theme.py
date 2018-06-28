@@ -68,7 +68,7 @@ class theme(object):
         self.complete = complete
         self._rcParams = {}
 
-        for target_name, theme_element in kwargs.items():
+        for target_name, theme_element in list(kwargs.items()):
             self.element_themes.append(element_target_factory(target_name,
                                                               theme_element))
 

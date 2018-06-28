@@ -2,10 +2,10 @@
 Input file parser for the LEMON parser generator.
 '''
 
-from ccruft import *
-from error import *
-from struct import *
-from table import *
+from .ccruft import *
+from .error import *
+from .struct import *
+from .table import *
 
 from sys import exit
 
@@ -32,7 +32,7 @@ MAXRHS = 1000
     RESYNC_AFTER_DECL_ERROR,
     WAITING_FOR_FALLBACK_ID,
     WAITING_FOR_WILDCARD_ID,
-    ) = range(18)
+    ) = list(range(18))
 
 
 pstate = struct(

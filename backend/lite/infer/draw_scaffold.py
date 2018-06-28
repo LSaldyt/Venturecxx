@@ -36,7 +36,7 @@ def drawScaffold(trace, indexer):
     warnings.warn('Failed to import module networkx.')
   else:
     index = indexer.sampleIndex(trace)
-    print "Drawing a scaffold with stats"
+    print("Drawing a scaffold with stats")
     index.show()
     G = traverseScaffold(trace, index)
     drawScaffoldGraph(trace, G)
@@ -122,14 +122,14 @@ def drawScaffoldGraph(trace, G, labels=None):
 def nodeLabelDict(nodes, trace):
   # Inverse look up dict for node -> symbol from trace.globalEnv
   inv_env_dict = OrderedDict()
-  for (sym, env_node) in trace.globalEnv.frame.iteritems():
+  for (sym, env_node) in trace.globalEnv.frame.items():
     assert isinstance(env_node, Node)
-    assert not inv_env_dict.has_key(env_node)
+    assert env_node not in inv_env_dict
     inv_env_dict[env_node] = sym
 
   label_dict = OrderedDict()
   for node in nodes:
-    if inv_env_dict.has_key(node):
+    if node in inv_env_dict:
       label = inv_env_dict[node]
     elif isOutputNode(node):
       label = 'O' # 'Output' #: ' + str(node.value)

@@ -42,12 +42,12 @@ def _test_serialize_program(v, label, action):
         assert isinstance(serialized[0], list)
         assert all(isinstance(x, dict) for x in serialized[0])
         assert isinstance(serialized[1], dict) # Mapping directive ids to directives
-        for (key,val) in serialized[1].iteritems():
+        for (key,val) in serialized[1].items():
             assert isinstance(key, int)
             assert isinstance(val, list)
         assert isinstance(serialized[2], set) # Names of bound foreign sps
         for elem in serialized[2]:
-            assert isinstance(elem, basestring)
+            assert isinstance(elem, str)
         assert isinstance(trace2, type(trace1))
         assert isinstance(trace2.trace, type(trace1.trace))
     elif action == 'copy':

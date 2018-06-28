@@ -70,7 +70,7 @@ class Trace(object):
   def __init__(self, seed):
 
     self.globalEnv = VentureEnvironment()
-    for name, val in builtInValues().iteritems():
+    for name, val in builtInValues().items():
       self.bindPrimitiveName(name, val)
     for name, sp in builtInSPsIter():
       self.bindPrimitiveSP(name, sp)
@@ -94,7 +94,7 @@ class Trace(object):
   def scope_keys(self):
     # A hack for allowing scope names not to be quoted in inference
     # programs (needs to be a method so Puma can implement it)
-    return self.scopes.keys()
+    return list(self.scopes.keys())
 
   def sealEnvironment(self):
     self.globalEnv = VentureEnvironment(self.globalEnv)
@@ -319,11 +319,11 @@ class Trace(object):
 
   def sampleBlock(self, scope): return self.getScope(scope).sample(self.py_rng)[0]
   def logDensityOfBlock(self, scope): return -1 * math.log(self.numBlocksInScope(scope))
-  def blocksInScope(self, scope): return self.getScope(scope).keys()
-  def numBlocksInScope(self, scope): return len(self.getScope(scope).keys())
+  def blocksInScope(self, scope): return list(self.getScope(scope).keys())
+  def numBlocksInScope(self, scope): return len(list(self.getScope(scope).keys()))
 
   def getAllNodesInScope(self, scope):
-    blocks = [self.getNodesInBlock(scope, block) for block in self.getScope(scope).keys()]
+    blocks = [self.getNodesInBlock(scope, block) for block in list(self.getScope(scope).keys())]
     if len(blocks) == 0: # Guido, WTF?
       return OrderedSet()
     else:
@@ -333,7 +333,7 @@ class Trace(object):
     if interval is None:
       return [self.getNodesInBlock(scope, block) for block in sorted(self.getScope(scope).keys())]
     else:
-      blocks = [b for b in self.getScope(scope).keys() if b >= interval[0] if b <= interval[1]]
+      blocks = [b for b in list(self.getScope(scope).keys()) if b >= interval[0] if b <= interval[1]]
       return [self.getNodesInBlock(scope, block) for block in sorted(blocks)]
 
   def numNodesInBlock(self, scope, block): return len(self.getNodesInBlock(scope, block, do_copy=False))
@@ -421,7 +421,7 @@ class Trace(object):
 
   def makeConsistent(self):
     weight = 0
-    for node, val in self.unpropagatedObservations.iteritems():
+    for node, val in self.unpropagatedObservations.items():
       appNode = self.getConstrainableNode(node)
 #      print "PROPAGATE", node, appNode
       scaffold = constructScaffold(self, [OrderedSet([appNode])])
@@ -449,7 +449,7 @@ class Trace(object):
 
   # use instead of makeConsistent when restoring a trace
   def registerConstraints(self):
-    for node, val in self.unpropagatedObservations.iteritems():
+    for node, val in self.unpropagatedObservations.items():
       appNode = self.getConstrainableNode(node)
       #import ipdb; ipdb.set_trace()
       node.observe(val)
@@ -609,9 +609,9 @@ function.
     ccs = copy.copy(self.ccs)
     aes = copy.copy(self.aes)
     scopes = OrderedDict()
-    for (scope_name, scope) in self.scopes.iteritems():
+    for (scope_name, scope) in self.scopes.items():
       new_scope = SamplableMap()
-      for (block_name, block) in scope.iteritems():
+      for (block_name, block) in scope.items():
         new_scope[block_name] = copy.copy(block)
       scopes[scope_name] = new_scope
 
@@ -633,14 +633,14 @@ function.
     assert ccs == self.ccs, "Global detach/restore changed the registered constrained choices from %s to %s" % (ccs, self.ccs)
     assert aes == self.aes, "Global detach/restore changed the registered AEKernels from %s to %s" % (aes, self.aes)
 
-    for scope_name in OrderedSet(scopes.keys()).union(self.scopes.keys()):
+    for scope_name in OrderedSet(list(scopes.keys())).union(list(self.scopes.keys())):
       if scope_name in scopes and scope_name not in self.scopes:
         assert False, "Global detach/restore destroyed scope %s with blocks %s" % (scope_name, scopes[scope_name])
       if scope_name not in scopes and scope_name in self.scopes:
         assert False, "Global detach/restore created scope %s with blocks %s" % (scope_name, self.scopes[scope_name])
       scope = scopes[scope_name]
       new_scope = self.scopes[scope_name]
-      for block_name in OrderedSet(scope.keys()).union(new_scope.keys()):
+      for block_name in OrderedSet(list(scope.keys())).union(list(new_scope.keys())):
         if block_name in scope and block_name not in new_scope:
           assert False, "Global detach/restore destroyed block %s, %s with nodes %s" % (scope_name, block_name, scope[block_name])
         if block_name not in scope and block_name in new_scope:
@@ -674,13 +674,13 @@ the scaffold determined by the given expression."""
   def makeSerializationDB(self, values=None, skipStackDictConversion=False):
     if values is not None:
       if not skipStackDictConversion:
-        values = map(self.unboxValue, values)
+        values = list(map(self.unboxValue, values))
     return OrderedOmegaDB(self, values)
 
   def dumpSerializationDB(self, db, skipStackDictConversion=False):
     values = db.listValues()
     if not skipStackDictConversion:
-      values = map(self.boxValue, values)
+      values = list(map(self.boxValue, values))
     return values
 
   def unevalAndExtract(self, id, db):
@@ -718,7 +718,7 @@ the scaffold determined by the given expression."""
 #################### Misc for particle commit
 
   def addNewMadeSPFamilies(self, node, newMadeSPFamilies):
-    for id, root in newMadeSPFamilies.iteritems():
+    for id, root in newMadeSPFamilies.items():
       node.madeSPRecord.spFamilies.registerFamily(id, root)
 
   def addNewChildren(self, node, newChildren):

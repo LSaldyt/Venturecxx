@@ -112,7 +112,7 @@ class MadeRiplMethodInferOutputPSP(psp.LikelihoodFreePSP):
       import sys
       info = sys.exc_info()
       raise VentureNestedRiplMethodError("Nested ripl operation signalled an error",
-                                         err, info, self.addr), None, info[2]
+                                         err, info, self.addr).with_traceback(info[2])
     try:
       if ans is not None:
         ans_vv = v.VentureValue.fromStackDict(ans)
@@ -1111,7 +1111,8 @@ class ParallelArrayMapActionOutputPSP(psp.LikelihoodFreePSP):
     parallelism = self._parallelism
     env = VentureEnvironment()
     rng = args.py_prng()
-    def per_operand((i, seed, operand)):
+    def per_operand(xxx_todo_changeme):
+      (i, seed, operand) = xxx_todo_changeme
       address = addr.request(base_address, addr.req_frame(i))
       rng_i = random.Random(seed)
       exp = [operator, e.quote(operand)]

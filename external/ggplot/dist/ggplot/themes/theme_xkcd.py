@@ -32,7 +32,7 @@ class theme_xkcd(theme):
         result = _empty()
         result.__class__ = self.__class__
         result.__dict__["_rcParams"] = {}
-        for k, v in self._rcParams.items():
+        for k, v in list(self._rcParams.items()):
             try:
                 result.__dict__["_rcParams"][k] = deepcopy(v, memo)
             except NotImplementedError:

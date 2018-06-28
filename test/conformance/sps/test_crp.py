@@ -94,7 +94,7 @@ def check_number_of_tables(alpha, seed):
   rng = npr.RandomState()
   rng.seed(seed)
   probs = [math.exp(log_prob_num_tables(k, n, alpha)) for k in range(n+1)]
-  expected = zip(range(n+1), probs)
+  expected = list(zip(list(range(n+1)), probs))
   lengths = [sample_num_tables(n, alpha, np_rng=rng) for _ in range(iters)]
   return reportKnownDiscrete(expected, lengths)
 

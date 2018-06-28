@@ -36,7 +36,7 @@ LINEWIDTH = 79    # Max width of any output line
 PREFIXLIMIT = 30  # Max width of the prefix on each line
 
 def ErrorMsg(filename, lineno, format, *args):
-    from ccruft import fprintf
+    from .ccruft import fprintf
     from sys import stdout
 
     # Prepare a prefix to be prepended to every output line

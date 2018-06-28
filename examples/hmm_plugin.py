@@ -53,13 +53,13 @@ def hmm_resume():
     hmm_downtime_start = None
 
 def hmm_map(inferrer, states):
-    sequence = map(int, u.strip_types(states[0]))
+    sequence = list(map(int, u.strip_types(states[0])))
     time = hmm_time()
     hmm_pause()
     import sys
-    print >>sys.stderr, 'MAP sequence: %s' % (sequence,)
-    print >>sys.stderr, 'Score: %s' % inferrer.engine.ripl.infer('global_log_joint')[0]
-    print '%s,%s' % (time, metric1(sequence))
+    print('MAP sequence: %s' % (sequence,), file=sys.stderr)
+    print('Score: %s' % inferrer.engine.ripl.infer('global_log_joint')[0], file=sys.stderr)
+    print('%s,%s' % (time, metric1(sequence)))
     hmm_resume()
 
 def hmm_smoothed(inferrer, states, likelihood_weight = True):
@@ -72,10 +72,10 @@ def hmm_smoothed(inferrer, states, likelihood_weight = True):
     for i in range(n):
         import sys
         tvd = total_variation_distance(marginals[i], smoothed_marginals[i])
-        print >>sys.stderr, ('Smoothed marginals at %2d (tvd %s): %s' %
-            (i, tvd, marginals[i]))
+        print(('Smoothed marginals at %2d (tvd %s): %s' %
+            (i, tvd, marginals[i])), file=sys.stderr)
     m, v = metric2(marginals)
-    print '%s,%s,%s' % (time, m, v)
+    print('%s,%s,%s' % (time, m, v))
     hmm_resume()
 
 def hmm_smoothed_nw(inferrer, states):
@@ -92,8 +92,8 @@ def hmm_state(inferrer, states):
     import sys
     marginals = marginalize(inferrer, u.strip_types(states))
     tvd = total_variation_distance(marginals, filtered_marginals[len(hmm_marginals)])
-    print >>sys.stderr, ('Filtered marginals at %2d (tvd %s): %s' %
-        (len(hmm_marginals), tvd, marginals,))
+    print(('Filtered marginals at %2d (tvd %s): %s' %
+        (len(hmm_marginals), tvd, marginals,)), file=sys.stderr)
     hmm_marginals.append(marginals)
 def hmm_end(inferrer):
     global hmm_marginals
@@ -101,7 +101,7 @@ def hmm_end(inferrer):
     time = hmm_time()
     hmm_pause()
     m, v = metric3(hmm_marginals)
-    print '%s,%s,%s' % (time, m, v)
+    print('%s,%s,%s' % (time, m, v))
     hmm_marginals = None
     hmm_resume()
 
@@ -213,7 +213,7 @@ def bitcount(n):
 
 def minimum(f, i):
     i = iter(i)
-    x0 = i.next()
+    x0 = next(i)
     y0 = f(x0)
     for x in i:
         y = f(x)

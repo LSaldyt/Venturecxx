@@ -66,7 +66,7 @@ To write a new test:
 
 """
 
-from StringIO import StringIO
+from io import StringIO
 from inspect import isgeneratorfunction
 import random
 import sys
@@ -110,7 +110,7 @@ def bool_like_option(name, default):
   if yes_like(thing): return True
   elif no_like(thing): return False
   else:
-    print "Option %s valued %s not clearly truthy or falsy, treating as %s" % (name, thing, default)
+    print("Option %s valued %s not clearly truthy or falsy, treating as %s" % (name, thing, default))
     return default
 
 def ignore_inference_quality():
@@ -605,6 +605,6 @@ the command line.  Thus, reproducibility of potentially rare errors.
       return f(seed, *args, **kwargs)
     except Exception as e:
       info = sys.exc_info()
-      print "To reproduce, use --tc=seed:%d" % (seed,)
-      raise e, None, info[2]
+      print("To reproduce, use --tc=seed:%d" % (seed,))
+      raise e.with_traceback(info[2])
   return wrapped

@@ -134,7 +134,7 @@ def testGPAux():
   ripl.predict('(gp (array 1.0 3.0))')
   check_firsts(ripl.infer('(extract_stats gp)'), {1.0, 3.0})
 
-  ripl.observe('(gp (array 5.0))', v.VentureArray(map(v.VentureNumber, [8.8])),
+  ripl.observe('(gp (array 5.0))', v.VentureArray(list(map(v.VentureNumber, [8.8]))),
           label='obs')
   check_firsts(ripl.infer('(extract_stats gp)'), {1.0, 3.0, 5.0})
 
@@ -151,7 +151,7 @@ def testNormalParameters():
   expect_sig = np.array([[0.0027, -0.0231], [-0.0231, 1.1090]])
   sigma = 2.1
   l = 1.8
-  observations = OrderedDict(zip(obs_inputs, obs_outputs))
+  observations = OrderedDict(list(zip(obs_inputs, obs_outputs)))
 
   mean = gp.mean_const(0.)
   covariance = cov.scale(sigma**2, cov.se(l**2))
@@ -172,7 +172,7 @@ def testOneSample(seed):
   expect_sig = 0.0027
   sigma = 2.1
   l = 1.8
-  observations = OrderedDict(zip(obs_inputs, obs_outputs))
+  observations = OrderedDict(list(zip(obs_inputs, obs_outputs)))
 
   mean = gp.mean_const(0.)
   covariance = cov.scale(sigma**2, cov.se(l**2))
@@ -183,7 +183,7 @@ def testOneSample(seed):
   def sample():
     s = gp._gp_sample(mean, covariance, observations, [test_input], np_rng)
     return s[0]
-  samples = np.array([sample() for _ in xrange(n)])
+  samples = np.array([sample() for _ in range(n)])
   assert samples.shape == (n,)
   return reportKnownGaussian(expect_mu, np.sqrt(expect_sig), samples)
 
@@ -197,7 +197,7 @@ def testTwoSamples_low_covariance(seed):
   in_lo_cov = np.array([1.4, -20.0])
   sigma = 2.1
   l = 1.8
-  observations = OrderedDict(zip(obs_inputs, obs_outputs))
+  observations = OrderedDict(list(zip(obs_inputs, obs_outputs)))
 
   mean = gp.mean_const(0.)
   covariance = cov.scale(sigma**2, cov.se(l**2))

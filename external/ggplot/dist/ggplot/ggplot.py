@@ -123,7 +123,7 @@ class ggplot(object):
             pass
         result = _empty()
         result.__class__ = self.__class__
-        for key, item in self.__dict__.items():
+        for key, item in list(self.__dict__.items()):
             # don't make a deepcopy of data!
             if key == "data":
                 result.__dict__[key] = self.__dict__[key]
@@ -286,7 +286,7 @@ class ggplot(object):
                                   cellLoc='center', cellColours=[['lightgrey']])
                         cntr += 1
 
-                    scale_facet_wrap(self.n_rows, self.n_columns, range(cntr), self.facet_scales)
+                    scale_facet_wrap(self.n_rows, self.n_columns, list(range(cntr)), self.facet_scales)
             else: # no faceting
                 for geom in self.geoms:
                     _aes = self.aesthetics
@@ -438,7 +438,7 @@ class ggplot(object):
 
         mapping = {}
         extra = {}
-        for ae, key in aes.items():
+        for ae, key in list(aes.items()):
             if isinstance(key, list) or hasattr(key, "__array__"):
                 # direct assignment of a list/array to the aes -> it's done in the get_layer step
                 mapping[ae] = key
@@ -453,7 +453,7 @@ class ggplot(object):
                 # string values.
                 extra[ae] = key
         mapping = pd.DataFrame(mapping)
-        for ae, key in extra.items():
+        for ae, key in list(extra.items()):
             mapping[ae] = key
 
         # Overwrite the already done mappings to matplotlib understandable
@@ -531,7 +531,7 @@ def _apply_transforms(data, aes):
         Transformed DataFrame
     """
     data = data.copy()
-    for ae, name in aes.items():
+    for ae, name in list(aes.items()):
         if (isinstance(name, six.string_types) and (name not in data)):
             # here we assume that it is a transformation
             # if the mapping is to a single value (color="red"), this will be handled by pandas and

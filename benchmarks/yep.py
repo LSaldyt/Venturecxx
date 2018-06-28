@@ -139,7 +139,7 @@ def main():
         tmp_file = tempfile.NamedTemporaryFile()
         out_file = tmp_file.name
     if not os.path.exists(main_file):
-        print('Error:', main_file, 'does not exist')
+        print(('Error:', main_file, 'does not exist'))
         sys.exit(1)
 
 #       .. execute file ..

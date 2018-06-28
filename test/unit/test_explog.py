@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Venture.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import division
+
 
 import math
 
@@ -87,8 +87,8 @@ def test_logsumexp():
   inf = float('inf')
   nan = float('nan')
   assert_raises(OverflowError,
-    lambda: math.log(sum(map(math.exp, range(1000)))))
-  assert relerr(999.4586751453871, logsumexp(range(1000))) < 1e-15
+    lambda: math.log(sum(map(math.exp, list(range(1000))))))
+  assert relerr(999.4586751453871, logsumexp(list(range(1000)))) < 1e-15
   assert logsumexp([]) == -inf
   assert logsumexp([-1000.]) == -1000.
   assert logsumexp([-1000., -1000.]) == -1000. + math.log(2.)

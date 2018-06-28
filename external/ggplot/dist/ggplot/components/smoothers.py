@@ -23,14 +23,14 @@ def lm(x, y, alpha=ALPHA):
     import statsmodels.api as sm
     from statsmodels.sandbox.regression.predstd import wls_prediction_std
     from statsmodels.stats.outliers_influence import summary_table
-    x, y = map(plot_friendly, [x,y])
+    x, y = list(map(plot_friendly, [x,y]))
     if _isdate(x[0]):
         x = np.array([i.toordinal() for i in x])
     X = sm.add_constant(x)
     fit = sm.OLS(y, X).fit()
     prstd, iv_l, iv_u = wls_prediction_std(fit)
     _, summary_values, summary_names = summary_table(fit, alpha=alpha)
-    df = pd.DataFrame(summary_values, columns=map(snakify, summary_names))
+    df = pd.DataFrame(summary_values, columns=list(map(snakify, summary_names)))
     fittedvalues        = df['predicted_value']
     predict_mean_se     = df['std_error_mean_predict']
     predict_mean_ci_low = df['mean_ci_95%_low']
@@ -47,7 +47,7 @@ def lowess(x, y, span=SPAN):
         statsmodels.nonparametric.smoothers_lowess.lowess
     """
     from statsmodels.nonparametric.smoothers_lowess import lowess as smlowess
-    x, y = map(plot_friendly, [x,y])
+    x, y = list(map(plot_friendly, [x,y]))
     if _isdate(x[0]):
         x = np.array([i.toordinal() for i in x])
     result = smlowess(np.array(y), np.array(x), frac=span)
@@ -61,7 +61,7 @@ def lowess(x, y, span=SPAN):
 
 def mavg(x,y, window):
     "compute moving average"
-    x, y = map(plot_friendly, [x,y])
+    x, y = list(map(plot_friendly, [x,y]))
     if _isdate(x[0]):
         x = np.array([i.toordinal() for i in x])
     std_err = pd.rolling_std(y, window)

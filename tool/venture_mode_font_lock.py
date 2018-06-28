@@ -31,7 +31,7 @@ def print_sorted_first_component(xs):
   names = sorted([x[0] for x in xs if not re.match("^_", x[0])])
   for name in names:
     sys.stdout.write('"{0}" '.format(name))
-  print
+  print()
 
 def extract_macro_names(intended_for_inference):
   macro_names = []
@@ -60,17 +60,17 @@ def inference_macros():
 
 def callbacks():
   ripl = Lite().make_church_prime_ripl()
-  print_sorted_first_component(ripl.sivm.core_sivm.engine.callbacks.iteritems())
+  print_sorted_first_component(iter(ripl.sivm.core_sivm.engine.callbacks.items()))
 
 def builtins():
   "All font lock level 3 builtins"
-  print ";; model SP's"
+  print(";; model SP's")
   model_SPs()
-  print ";; inference SP's"
+  print(";; inference SP's")
   inference_SPs()
-  print ";; inference prelude"
+  print(";; inference prelude")
   inference_prelude_SPs()
-  print ";; inference callbacks"
+  print(";; inference callbacks")
   callbacks()
   
 def dispatch():
@@ -84,11 +84,11 @@ def dispatch():
 
 if __name__ == "__main__":
   if len(sys.argv) == 1:
-    print "Available arguments are: " + " ".join(dispatch().keys())
+    print("Available arguments are: " + " ".join(list(dispatch().keys())))
   else:
     arg = sys.argv[1]
     if arg in dispatch():
       dispatch()[arg]()
-      print
+      print()
     else:
-      print "Bad keyword."
+      print("Bad keyword.")

@@ -92,7 +92,7 @@ def write_version_py(path):
         version_old = None
     version_new = '__version__ = %r\n' % (full_version,)
     if version_old != version_new:
-        print 'writing %s' % (path,)
+        print('writing %s' % (path,))
         with open(path, 'wb') as f:
             f.write(version_new)
 
@@ -222,8 +222,8 @@ if ON_MAC:
         sources = puma_src_files)
 
 if "SKIP_PUMA_BACKEND" in os.environ:
-    print "Skipping Puma backend because SKIP_PUMA_BACKEND is %s" % os.environ["SKIP_PUMA_BACKEND"]
-    print "Unset it to build the Puma backend."
+    print("Skipping Puma backend because SKIP_PUMA_BACKEND is %s" % os.environ["SKIP_PUMA_BACKEND"])
+    print("Unset it to build the Puma backend.")
 else:
     ext_modules.append(puma)
 
@@ -302,7 +302,7 @@ def generate_parser(lemonade, path_y):
     path_sha256 = base + '.sha256'
     if uptodate(path_y, path_py, path_sha256):
         return
-    print 'generating %s -> %s' % (path_y, path_py)
+    print('generating %s -> %s' % (path_y, path_py))
     distutils.spawn.spawn([
         '/usr/bin/env', 'PYTHONPATH=' + lemonade,
         lemonade + '/bin/lemonade',
@@ -357,12 +357,12 @@ class local_test(test_py):
         for line in status.split('\n'):
             if not line: continue
             if line[0] == '-':
-                print status
+                print(status)
                 raise ImportError("Missing submodules."
                                   " Consider running"
                                   " `git submodule update --init --recursive`.")
-        print "Test prerequisites satisfied."
-        print "Please use ./check.sh instead and read ./HACKING.md"
+        print("Test prerequisites satisfied.")
+        print("Please use ./check.sh instead and read ./HACKING.md")
         sys.exit(0)  # A success(!) because we have what tests_require.
 
 tests_require = [
@@ -383,7 +383,7 @@ class local_sdist(sdist):
         import os
         sdist.make_release_tree(self, base_dir, files)
         version_file = os.path.join(base_dir, 'VERSION')
-        print('updating %s' % (version_file,))
+        print(('updating %s' % (version_file,)))
         # Write to temporary file first and rename over permanent not
         # just to avoid atomicity issues (not likely an issue since if
         # interrupted the whole sdist directory is only partially

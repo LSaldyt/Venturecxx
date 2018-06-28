@@ -35,9 +35,7 @@ def makeDensityFunction(trace,scaffold,psp,pnode,fixed_randomness):
       return regenAndAttach(Particle(trace),scaffold,False,OmegaDB(),OrderedDict())
   return f
 
-class SliceOperator(object):
-  __metaclass__ = ABCMeta
-
+class SliceOperator(object, metaclass=ABCMeta):
   @abstractmethod
   def findInterval(self,f,x0,logy,py_rng): pass
 

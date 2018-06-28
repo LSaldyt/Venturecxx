@@ -171,7 +171,7 @@ def add_ggplotrc_params(obj):
             klass = obj.__class__.__name__
             ggrc = json.load(open(ggrc, 'r'))
             if klass in ggrc:
-                for k, v in ggrc[klass].items():
+                for k, v in list(ggrc[klass].items()):
                     setattr(obj, k, v)
         except:
             pass

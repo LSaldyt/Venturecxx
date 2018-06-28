@@ -8,7 +8,7 @@
 # backport of that module does not appear to be packaged even in
 # Ubuntu 16.04.
 
-from __future__ import absolute_import
+
 
 # This is a magic constant that mypy sets to true during type
 # checking, as described under

@@ -43,7 +43,7 @@ class MyScanner(Scanner):
       if self.indentation_char is None:
         self.indentation_char = c
       else:
-        if self.indentation_char <> c:
+        if self.indentation_char != c:
           raise NaughtyNaughty("Mixed up tabs and spaces!")
     # Figure out how many indents/dedents to do
     current_level = self.current_level()
@@ -57,7 +57,7 @@ class MyScanner(Scanner):
       while new_level < self.current_level():
         del self.indentation_stack[-1]
         self.produce('DEDENT', '')
-      if new_level <> self.current_level():
+      if new_level != self.current_level():
         raise NaughtyNaughty("Indentation booboo!")
 
   def eof(self):
@@ -134,11 +134,11 @@ while 1:
   value, text = ts.read()
   level = len(ts.indentation_stack) - 1
   if level:
-    print (4 * level - 1) * ' ',
-  if text and text <> value:
-    print "%s(%s)" % (value, repr(text))
+    print((4 * level - 1) * ' ', end=' ')
+  if text and text != value:
+    print("%s(%s)" % (value, repr(text)))
   else:
-    print repr(value)
+    print(repr(value))
   if value is None:
     break
 

@@ -35,7 +35,7 @@ class geom_rect(geom):
 
     def _plot_unit(self, pinfo, ax):
         if isinstance(pinfo['xmax'], list):
-            xcoords = zip(pinfo['left'], pinfo['xmax'])
+            xcoords = list(zip(pinfo['left'], pinfo['xmax']))
             width = [xmax - xmin for xmin, xmax in xcoords]
         else:
             width = pinfo['xmax'] - pinfo['left']
@@ -43,7 +43,7 @@ class geom_rect(geom):
         del pinfo['xmax']
 
         if isinstance(pinfo['ymax'], list):
-            ycoords = zip(pinfo['bottom'], pinfo['ymax'])
+            ycoords = list(zip(pinfo['bottom'], pinfo['ymax']))
             height = [ymax - ymin for ymin, ymax in ycoords]
         else:
             height = pinfo['ymax'] - pinfo['bottom']

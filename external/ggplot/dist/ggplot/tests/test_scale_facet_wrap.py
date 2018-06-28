@@ -16,7 +16,7 @@ def test_not_turn_off_first_axis():
     # as per GH47, the first axis was switched off when we had a square number of axis
     import pandas as pd
     # 4 plots
-    dat4 = pd.DataFrame({'x': range(40), 'y': range(40), 'w': (list('abcd')* 10)})
+    dat4 = pd.DataFrame({'x': list(range(40)), 'y': list(range(40)), 'w': (list('abcd')* 10)})
     gg = ggplot(aes(x = 'x', y = 'y'), data=dat4) + geom_line() + facet_wrap('w')
     assert_same_ggplot(gg, "first_ax_not_off")
 

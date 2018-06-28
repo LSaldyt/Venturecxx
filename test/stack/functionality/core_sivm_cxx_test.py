@@ -78,7 +78,7 @@ class TestCoreSivm(unittest.TestCase):
         val = v.number(3)
         o = self.sivm.execute_instruction(inst)
         self.assertIsInstance(o['directive_id'],(int,float))
-        self.assertEquals(o['value'],val)
+        self.assertEqual(o['value'],val)
 
     def test_observe(self):
         inst = {
@@ -98,7 +98,7 @@ class TestCoreSivm(unittest.TestCase):
         try:
             self.sivm.execute_instruction(inst)
         except VentureException as e:
-            self.assertEquals(e.exception, 'invalid_constraint')
+            self.assertEqual(e.exception, 'invalid_constraint')
 
     def test_predict(self):
         inst = {
@@ -108,7 +108,7 @@ class TestCoreSivm(unittest.TestCase):
         val = v.number(3)
         o = self.sivm.execute_instruction(inst)
         self.assertIsInstance(o['directive_id'],(int,float))
-        self.assertEquals(o['value'],val)
+        self.assertEqual(o['value'],val)
 
     def test_forget(self):
         inst1 = {
@@ -126,7 +126,7 @@ class TestCoreSivm(unittest.TestCase):
         try:
             self.sivm.execute_instruction(inst2)
         except VentureException as e:
-            self.assertEquals(e.exception,'invalid_argument')
+            self.assertEqual(e.exception,'invalid_argument')
 
     def test_report(self):
         inst1 = {
@@ -139,7 +139,7 @@ class TestCoreSivm(unittest.TestCase):
                 'directive_id':o1['directive_id'],
                 }
         o2 = self.sivm.execute_instruction(inst2)
-        self.assertEquals(o2['value'], v.number(3))
+        self.assertEqual(o2['value'], v.number(3))
     def test_report_invalid_did(self):
         inst = {
                 'instruction':'report',
@@ -148,7 +148,7 @@ class TestCoreSivm(unittest.TestCase):
         try:
             self.sivm.execute_instruction(inst)
         except VentureException as e:
-            self.assertEquals(e.exception,'invalid_argument')
+            self.assertEqual(e.exception,'invalid_argument')
 
     def test_infer(self):
         inst = {
@@ -174,4 +174,4 @@ class TestCoreSivm(unittest.TestCase):
         try:
             self.sivm.execute_instruction(inst)
         except VentureException as e:
-            self.assertEquals(e.exception,'invalid_argument')
+            self.assertEqual(e.exception,'invalid_argument')

@@ -4,14 +4,14 @@ sys.stderr = sys.stdout
 from TransitionMaps import TransitionMap
 
 m = TransitionMap()
-print m
+print(m)
 
 def add(c, s):
-  print
-  print "adding", repr(c), "-->", repr(s)
+  print()
+  print("adding", repr(c), "-->", repr(s))
   m.add_transition(c, s)
-  print m
-  print "keys:", m.keys()
+  print(m)
+  print("keys:", list(m.keys()))
 
 add('a','alpha')
 add('e', 'eta')

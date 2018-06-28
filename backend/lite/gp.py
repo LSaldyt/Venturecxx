@@ -53,8 +53,8 @@ def _gp_gradientOfLogDensity(mean, covariance, samples, xs, os):
   # d/dx_1 log P(o_1 | Mu, Sigma, x_1, X_2, O_2)
   xs1 = xs
   os1 = os
-  xs2 = np.array(samples.keys())
-  os2 = np.array(samples.values())
+  xs2 = np.array(list(samples.keys()))
+  os2 = np.array(list(samples.values()))
 
   dxs1 = []
   dos1 = []
@@ -96,8 +96,8 @@ def _gp_gradientOfLogDensity(mean, covariance, samples, xs, os):
 def _gp_logDensityOfData(mean, covariance, samples):
   if len(samples) == 0:
     return 0
-  xs = np.asarray(samples.keys())
-  os = np.asarray(samples.values())
+  xs = np.asarray(list(samples.keys()))
+  os = np.asarray(list(samples.values()))
   mu = mean.f(xs)
   sigma = covariance.f(xs, xs)
   return mvnormal.logpdf(os, mu, sigma)
@@ -105,8 +105,8 @@ def _gp_logDensityOfData(mean, covariance, samples):
 def _gp_gradientOfLogDensityOfData(mean, covariance, samples):
   if len(samples) == 0:
     return 0
-  xs = np.asarray(samples.keys())
-  os = np.asarray(samples.values())
+  xs = np.asarray(list(samples.keys()))
+  os = np.asarray(list(samples.values()))
   dos = np.zeros(os.shape)
   mu, dmu = mean.df_theta(xs)
   sigma, dsigma = covariance.df_theta(xs, xs)
@@ -120,8 +120,8 @@ def _gp_mvnormal(mean, covariance, samples, xs):
     mu = mean.f(xs)
     sigma = covariance.f(xs, xs)
   else:
-    x2s = np.asarray(samples.keys())
-    o2s = np.asarray(samples.values())
+    x2s = np.asarray(list(samples.keys()))
+    o2s = np.asarray(list(samples.values()))
     mu1 = mean.f(xs)
     mu2 = mean.f(x2s)
     sigma11 = covariance.f(xs, xs)
@@ -223,8 +223,8 @@ class GPSPAux(SPAux):
       # (x,y) = xy
       # Since we are assuming the domain of the GP is numeric, the
       # following suffices:
-      return v.VentureArray(map(v.VentureNumber, xy))
-    return v.VentureArray([encode(xy) for xy in self.samples.items()])
+      return v.VentureArray(list(map(v.VentureNumber, xy)))
+    return v.VentureArray([encode(xy) for xy in list(self.samples.items())])
 
 class GPSP(SP):
 

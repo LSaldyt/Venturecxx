@@ -38,7 +38,7 @@ def testGoldwater1():
 
   alphabet = "".join(set("".join(list(itertools.chain.from_iterable(brent)))))
   d = {}
-  for i in xrange(len(alphabet)): d[alphabet[i]] = i
+  for i in range(len(alphabet)): d[alphabet[i]] = i
 
   ripl.assume("parameter_for_dirichlet","(if (flip) (normal 10 1) (gamma 1 1))")
   ripl.assume("alphabet_length", str(len(alphabet)))

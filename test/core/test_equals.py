@@ -21,6 +21,7 @@ from nose.tools import eq_
 from venture.lite.utils import cartesianProduct
 from venture.test.config import get_ripl
 from venture.test.config import on_inf_prim
+from functools import reduce
 
 @on_inf_prim("none")
 def testArrayEquals():

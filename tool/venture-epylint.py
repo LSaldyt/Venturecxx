@@ -76,5 +76,5 @@ for line in p.stdout:
         # running 'M-x describe-variable' on the variable
         # 'flymake-err-line-patterns'
     
-        print "%s %s%s %s at %s line %s." % \
-            (msg, errtype, errnum, description, filename, linenum)
+        print("%s %s%s %s at %s line %s." % \
+            (msg, errtype, errnum, description, filename, linenum))

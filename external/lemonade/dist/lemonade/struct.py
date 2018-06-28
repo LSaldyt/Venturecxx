@@ -3,7 +3,7 @@ Principal data structures for the LEMON parser generator.
 '''
 
 
-from ccruft import struct
+from .ccruft import struct
 
 
 
@@ -14,14 +14,14 @@ from ccruft import struct
     TERMINAL,
     NONTERMINAL,
     MULTITERMINAL,
-    ) = range(3)
+    ) = list(range(3))
 
 ( # assoc
     LEFT,
     RIGHT,
     NONE,
     UNK,
-    ) = range(4)
+    ) = list(range(4))
 
 symbol = struct(
     'symbol',
@@ -78,7 +78,7 @@ rule = struct(
 ( # status
     COMPLETE,
     INCOMPLETE
-) = range(2)
+) = list(range(2))
 
 config = struct(
     'config',
@@ -110,7 +110,7 @@ config = struct(
     SH_RESOLVED,        # Was a shift.  Precedence resolved conflict
     RD_RESOLVED,        # Was reduce.  Precedence resolved conflict
     NOT_USED,           # Deleted by compression
-) = range(10)
+) = list(range(10))
 
 action = struct(
     'action',

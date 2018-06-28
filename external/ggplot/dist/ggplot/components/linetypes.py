@@ -61,6 +61,6 @@ def assign_linetypes(data, aes):
 
         legend_entry = {
             'column_name': linetype_col,
-            'dict': dict((v, k) for k, v in linetype_mapping.items()),
+            'dict': dict((v, k) for k, v in list(linetype_mapping.items())),
             'scale_type': "discrete"}
     return data, legend_entry

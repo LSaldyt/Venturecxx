@@ -5,7 +5,7 @@ import sys
 def generateGrammar():
     from lemonade.main import generate
     from os.path import join, dirname
-    from StringIO import StringIO
+    from io import StringIO
 
     inputFile = join(dirname(__file__), "gram.y")
     outputStream = StringIO()
@@ -14,7 +14,7 @@ def generateGrammar():
 
 
 # generate and import our grammar
-exec generateGrammar() in globals()
+exec(generateGrammar(), globals())
 
 
 #
@@ -57,7 +57,7 @@ class Delegate(object):
         assert False, "Giving up.  Parser is hopelessly lost..."
 
     def syntax_error(self, token):
-        print >>sys.stderr, "Syntax error!"
+        print("Syntax error!", file=sys.stderr)
         return
 
 
@@ -72,7 +72,7 @@ class Delegate(object):
     def num(self, value): return value
 
     def print_result(self, result):
-        print result
+        print(result)
         return
 
 
@@ -82,5 +82,5 @@ p = Parser(Delegate())
 if len(sys.argv) == 2:
     p.parse(tokenize(sys.argv[1]))
 else:
-    print >>sys.stderr, "usage: %s EXPRESSION" % sys.argv[0]
+    print("usage: %s EXPRESSION" % sys.argv[0], file=sys.stderr)
 

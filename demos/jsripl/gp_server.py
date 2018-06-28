@@ -66,7 +66,7 @@ samples = [
 def array(xs):
   return v.VentureArrayUnboxed(np.array(xs), gp.xType)
 
-xs, os = zip(*samples)
+xs, os = list(zip(*samples))
 
 #ripl.observe(['gp', array(xs)], array(os))
 ripl.infer("(incorporate)")

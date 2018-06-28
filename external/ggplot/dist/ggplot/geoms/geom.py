@@ -89,7 +89,7 @@ class geom(object):
         self._stat_params = {}
         self.params = deepcopy(self.DEFAULT_PARAMS)
         self.manual_aes = {}
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             if k in self.aes:
                 raise GgplotError('Aesthetic, %s, specified twice' % k)
             elif (k in self.valid_aes and
@@ -228,7 +228,7 @@ class geom(object):
         # To make mapping of columns to geom/stat or stat parameters
         # possible
         _keep = set(self.DEFAULT_PARAMS) | set(self._stat_type.DEFAULT_PARAMS)
-        for k, v in passed_aes.items():
+        for k, v in list(passed_aes.items()):
             if k in self.valid_aes or k in _keep:
                 _aes[k] = v
             else:
@@ -246,7 +246,7 @@ class geom(object):
         _original = set(data)
         data = self._stat._calculate(data)
         _d = {}
-        for old, new in self._aes_renames.items():
+        for old, new in list(self._aes_renames.items()):
             if (old in data) and (old not in _original):
                 _d[new] = data.pop(old)
         data.update(_d)
@@ -298,7 +298,7 @@ class geom(object):
         def _rename_fn(aes_dict):
             # to prevent overwrites
             _d = {}
-            for old, new in self._aes_renames.items():
+            for old, new in list(self._aes_renames.items()):
                 if old in aes_dict:
                     _d[new] = aes_dict.pop(old)
             aes_dict.update(_d)

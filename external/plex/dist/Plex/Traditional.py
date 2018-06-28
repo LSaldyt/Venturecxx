@@ -6,8 +6,8 @@
 #
 #=======================================================================
 
-from Regexps import *
-from Errors import PlexError
+from .Regexps import *
+from .Errors import PlexError
 
 class RegexpSyntaxError(PlexError):
   pass
@@ -25,7 +25,7 @@ class REParser:
     self.s = s
     self.i = -1
     self.end = 0
-    self.next()
+    next(self)
   
   def parse_re(self):
     re = self.parse_alt()
@@ -39,9 +39,9 @@ class REParser:
     if self.c == '|':
       re_list = [re]
       while self.c == '|':
-        self.next()
+        next(self)
         re_list.append(self.parse_seq())
-      re = apply(Alt, tuple(re_list))
+      re = Alt(*tuple(re_list))
     return re
       
   def parse_seq(self):
@@ -49,7 +49,7 @@ class REParser:
     re_list = []
     while not self.end and not self.c in "|)":
       re_list.append(self.parse_mod())
-    return apply(Seq, tuple(re_list))
+    return Seq(*tuple(re_list))
   
   def parse_mod(self):
     """Parse a primitive regexp followed by *, +, ? modifiers."""
@@ -61,7 +61,7 @@ class REParser:
         re = Rep1(re)
       else: # self.c == '?'
         re = Opt(re)
-      self.next()
+      next(self)
     return re
 
   def parse_prim(self):
@@ -91,16 +91,16 @@ class REParser:
     invert = 0
     if self.c == '^':
       invert = 1
-      self.next()
+      next(self)
     if self.c == ']':
       char_list.append(']')
-      self.next()
-    while not self.end and self.c <> ']':
+      next(self)
+    while not self.end and self.c != ']':
       c1 = self.get()
-      if self.c == '-' and self.lookahead(1) <> ']':
-        self.next()
+      if self.c == '-' and self.lookahead(1) != ']':
+        next(self)
         c2 = self.get()
-        for a in xrange(ord(c1), ord(c2) + 1):
+        for a in range(ord(c1), ord(c2) + 1):
           char_list.append(chr(a))
       else:
         char_list.append(c1)
@@ -110,7 +110,7 @@ class REParser:
     else:
       return Any(chars)
   
-  def next(self):
+  def __next__(self):
     """Advance to the next char."""
     s = self.s
     i = self.i = self.i + 1
@@ -124,7 +124,7 @@ class REParser:
     if self.end:
       self.error("Premature end of string")
     c = self.c
-    self.next()
+    next(self)
     return c
     
   def lookahead(self, n):
@@ -141,7 +141,7 @@ class REParser:
     Raises an exception otherwise.
     """
     if self.c == c:
-      self.next()
+      next(self)
     else:
       self.error("Missing %s" % repr(c))
   

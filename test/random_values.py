@@ -30,13 +30,13 @@ class DefaultRandomVentureValue(object):
     self.method = method
     self.kwargs = kwargs
   def generate(self, **kwargs):
-    return getattr(self, self.method)(**(dict(self.kwargs.items() + kwargs.items())))
+    return getattr(self, self.method)(**(dict(list(self.kwargs.items()) + list(kwargs.items()))))
   def number(self, **_kwargs):
     return v.VentureNumber(npr.uniform(-10, 10))
   def integer(self, **_kwargs):
-    return v.VentureInteger(npr.choice(range(-10, 10)))
+    return v.VentureInteger(npr.choice(list(range(-10, 10))))
   def count(self, **_kwargs):
-    return v.VentureInteger(npr.choice(range(10)))
+    return v.VentureInteger(npr.choice(list(range(10))))
   def positive(self, **_kwargs):
     return v.VentureNumber(npr.uniform(0, 10)) # TODO Prevent zero
   def nonpositive(self, **_kwargs):

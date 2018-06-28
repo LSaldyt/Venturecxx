@@ -64,9 +64,9 @@ def test_axis_changes_applied_to_all_axis():
     fig = (p + xlim(0,1500)).draw()
     for ax in fig.axes:
         assert_true(ax.get_xlim() == (0,1500))
-    fig = (p + xlab(u"test")).draw()
+    fig = (p + xlab("test")).draw()
     for ax in fig.axes:
-        assert_true(ax.get_xlabel() == u"test")
+        assert_true(ax.get_xlabel() == "test")
 
 @cleanup
 def test_axis_changes_applied_to_all_axis_visual():
@@ -74,7 +74,7 @@ def test_axis_changes_applied_to_all_axis_visual():
     # http://stackoverflow.com/questions/20807212/in-ggplot-for-python-specify-global-xlim-in-facet-wrap
     p = ggplot(aes(x="price"), data=diamonds) + geom_histogram()
     p = p + facet_wrap("cut", scales="free_y")
-    assert_same_ggplot(p + xlim(-10,5100) + xlab(u"test"), "axis_changes_to_all")
+    assert_same_ggplot(p + xlim(-10,5100) + xlab("test"), "axis_changes_to_all")
 
 @cleanup
 def test_different_markers():

@@ -18,10 +18,10 @@
 from venture.lite.exception import VentureTypeError
 
 def derivative(f, x):
-  return lambda(h): (f(x+h) - f(x-h)) / (2*h)
+  return lambda h: (f(x+h) - f(x-h)) / (2*h)
 
 def richardson_step(f, degree):
-  return lambda(h): (2**degree * f(h/2) - f(h)) / (2**degree - 1)
+  return lambda h: (2**degree * f(h/2) - f(h)) / (2**degree - 1)
 
 def richardson(f, step0=None):
   # TODO Memoize the incoming function (possibly with an explicit
@@ -50,7 +50,7 @@ def tweaking_lens(lens, thunk):
       # other side steps off the cliff?
       import sys
       info = sys.exc_info()
-      raise ValueError(info[1]), None, info[2]
+      raise ValueError(info[1]).with_traceback(info[2])
     finally:
       # Leave the value in the lens undisturbed
       lens.set(x)

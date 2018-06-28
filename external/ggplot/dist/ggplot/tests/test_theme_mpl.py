@@ -11,13 +11,13 @@ from ggplot import *
 
 def _diff(a, b):
     ret = {}
-    for key, val in a.items():
+    for key, val in list(a.items()):
         if key in b:
             if b[key] != val:
                 ret[key] = "%s: %s -> %s" % (key, val, b[key])
         else:
             ret[key] = "%s: %s -> %s" % (key, val, "--")
-    for key, val in b.items():
+    for key, val in list(b.items()):
         if key not in a:
             ret[key] = "%s: %s -> %s" % (key, "--", val)
     return ret

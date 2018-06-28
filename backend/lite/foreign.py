@@ -66,7 +66,7 @@ def asArgsObject(args):
     assert seed is not None
     prng = random.Random(seed)
     return MockArgs(
-        map(fromStackDict, args.get('operandValues')),
+        list(map(fromStackDict, args.get('operandValues'))),
         args.get('spaux'),
         py_rng=random.Random(prng.randint(1, 2**31 - 1)),
         np_rng=npr.RandomState(prng.randint(1, 2**31 - 1)),

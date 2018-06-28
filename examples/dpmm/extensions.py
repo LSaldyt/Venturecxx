@@ -33,7 +33,7 @@ def convert_from_venture_value(venture_value):
     if isinstance(venture_value, vv.VentureDict):
         shallow = t.Dict().asPythonNoneable(venture_value)
         deep = OrderedDict()
-        for key, value in shallow.iteritems():
+        for key, value in shallow.items():
             deep[convert_from_venture_value(key)] = \
                 convert_from_venture_value(value)
         return deep
@@ -73,14 +73,14 @@ def plot_histories(histories):
     for h in histories:
         new = True
         for item in h:
-            for (k, v) in item.iteritems():
+            for (k, v) in item.items():
                 if k not in unzipped:
                     unzipped[k] = []
                 if new:
                     unzipped[k].append([])
                 unzipped[k][-1].append(v)
             new = False
-    for (k, hs) in unzipped.iteritems():
+    for (k, hs) in unzipped.items():
         plt.figure()
         for h in hs:
             plt.plot(h)
@@ -106,7 +106,8 @@ def layout(samples):
     max_width = max(int(math.floor(160 / block_width)), 1)
     max_height = max(int(math.floor(90 / block_height)), 1)
     max_capacity = len(samples)
-    def layout_quality((width, height)):
+    def layout_quality(xxx_todo_changeme):
+        (width, height) = xxx_todo_changeme
         aspect_ratio = float(width * block_width)/float(height * block_height)
         discrepancy = abs(aspect_ratio - 16.0 / 9.0)
         capacity = width * height
@@ -128,7 +129,7 @@ def plot_samples(data, samples):
     plt.close()
 
 def make_plots(data, results):
-    (histories, samples) = zip(*convert_from_venture_value(results))
+    (histories, samples) = list(zip(*convert_from_venture_value(results)))
     plot_histories(histories)
     plot_samples(data, samples)
 

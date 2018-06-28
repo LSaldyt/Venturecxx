@@ -25,6 +25,6 @@ if len(sys.argv) > 1:
     port = int(sys.argv[1])
 
 url = "http://127.0.0.1:{0}".format(port)
-print "Connecting to RIPL Server at {0}".format(url)
+print("Connecting to RIPL Server at {0}".format(url))
 ripl = make_ripl_rest_client(url)
-print "Venture RIPL handle in `ripl' variable"
+print("Venture RIPL handle in `ripl' variable")

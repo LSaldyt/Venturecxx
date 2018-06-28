@@ -49,7 +49,7 @@ class stat_bin2d(stat):
         rects = np.array([[xbreaks[i], xbreaks[i+1],
                            ybreaks[j], ybreaks[j+1],
                            table[(i, j)]]
-                          for (i, j) in table.keys()])
+                          for (i, j) in list(table.keys())])
         new_data = pd.DataFrame(rects, columns=['xmin', 'xmax',
                                                 'ymin', 'ymax',
                                                 'fill'])

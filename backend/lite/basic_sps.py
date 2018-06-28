@@ -17,7 +17,7 @@
 
 """(Deterministic) basic programming SPs"""
 
-import cPickle as pkl
+import pickle as pkl
 
 from collections import OrderedDict
 
@@ -179,13 +179,13 @@ registerBuiltinSP("to_dict",
            "respective given values."))
 
 registerBuiltinSP("keys",
-  deterministic_typed(lambda d: d.keys(),
+  deterministic_typed(lambda d: list(d.keys()),
     [t.HomogeneousDictType(t.AnyType("k"), t.AnyType("v"))],
     t.HomogeneousListType(t.AnyType("k")),
     descr="keys returns a list of keys of the given dictionary."))
 
 registerBuiltinSP("values",
-  deterministic_typed(lambda d: d.values(),
+  deterministic_typed(lambda d: list(d.values()),
     [t.HomogeneousDictType(t.AnyType("k"), t.AnyType("v"))],
     t.HomogeneousListType(t.AnyType("v")),
     descr="values returns a list of values of the given dictionary."))
@@ -227,7 +227,7 @@ registerBuiltinSP("take", deterministic_typed(lambda ind, xs: xs.take(ind),
           "the same type."))
 
 def debug_print(label, value):
-  print 'debug ' + label + ': ' + str(value)
+  print('debug ' + label + ': ' + str(value))
   return value
 
 registerBuiltinSP("debug", deterministic_typed(debug_print,

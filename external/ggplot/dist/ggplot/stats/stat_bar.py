@@ -20,7 +20,7 @@ class stat_bar(stat):
         new_data = pd.DataFrame()
         new_data["x"] = self.labels
         for column in set(data.columns) - set('x'):
-            column_dict = dict(zip(data["x"],data[column]))
+            column_dict = dict(list(zip(data["x"],data[column])))
             default = 0 if column == "y" else data[column].values[0]
             new_data[column] = [column_dict.get(val, default)
                                 for val in self.labels]

@@ -27,7 +27,7 @@ from venture.lite.utils import logDensityMVNormal
 def testLogDensityMVNormal():
   x = np.array([1,2])
   mu = np.array([3,4])
-  sigma = np.array(range(1,5)).reshape(2,2)
+  sigma = np.array(list(range(1,5))).reshape(2,2)
   sigma = sigma.dot(sigma.T)
 
   actual = logDensityMVNormal(x, mu, sigma)

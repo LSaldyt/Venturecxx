@@ -23,7 +23,7 @@ def run(lexicon, test_name,
   if debug:
     debug_file = sys.stdout
     lexicon.machine.dump(debug_file)
-    print "=" * 70
+    print("=" * 70)
   else:
     debug_file = None
   in_name = test_name + ".in"
@@ -34,7 +34,7 @@ def run(lexicon, test_name,
   while 1:
     value, text = s.read()
     name, line, pos = s.position()
-    print "%s %3d %3d %-10s %s" % (name, line, pos, value, repr(text))
+    print("%s %3d %3d %-10s %s" % (name, line, pos, value, repr(text)))
     if value is None:
       break
 

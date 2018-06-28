@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Venture.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import division
+
 
 import copy
 import random
@@ -44,7 +44,7 @@ def pick_elements(prng, k, g):
 
 def pick_sample(prng, k, l):
     sample = l[:k]
-    for i in xrange(k, len(l)):
+    for i in range(k, len(l)):
         j = pick_integer(prng, i + 1)
         if j < k:
             sample[j] = l[i]
@@ -110,7 +110,7 @@ def checkem(check):
         for x in integers(prng):
             y = pick_integer(prng, 2)*32
             z = pick_integer(prng, 2)*1000
-            c = unichr(x + y + z)
+            c = chr(x + y + z)
             if c in done:
                 continue
             done.add(c)

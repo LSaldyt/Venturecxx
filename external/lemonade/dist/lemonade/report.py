@@ -2,11 +2,11 @@
 Procedures for generating reports and tables in the LEMON parser generator.
 '''
 
-from action import *
-from acttab import *
-from ccruft import *
-from struct import *
-from table import *
+from .action import *
+from .acttab import *
+from .ccruft import *
+from .struct import *
+from .table import *
 
 from sys import stderr
 
@@ -156,7 +156,7 @@ def PrintAction(ap, fp, indent, showPrecedenceConflict=False):
 def ReportOutput(lemp, showPrecedenceConflict=False):
     '''Generate the "y.output" log file.'''
 
-    from set import SetFind
+    from .set import SetFind
 
     fp = file_open(lemp, ".out", "wb")
     if fp is None:
@@ -182,7 +182,7 @@ def ReportOutput(lemp, showPrecedenceConflict=False):
             if lemp.basisflag:
                 cfp = cfp.bp
             else:
-                cfp = cfp.next
+                cfp = cfp.__next__
 
         fprintf(fp, "\n")
         for ap in iterlinks(stp.ap):
@@ -791,7 +791,7 @@ def CompressTables(lemp):
                 continue
 
             n = 1
-            for ap2 in iterlinks(ap.next):
+            for ap2 in iterlinks(ap.__next__):
                 if ap2.type != REDUCE:
                     continue
 
@@ -818,7 +818,7 @@ def CompressTables(lemp):
                 break
         assert ap
         ap.sp = Symbol_new("{default}")
-        for ap in iterlinks(ap.next):
+        for ap in iterlinks(ap.__next__):
             if ap.type == REDUCE and ap.x.rp == rbest:
                 ap.type = NOT_USED
         stp.ap = Action_sort(stp.ap)

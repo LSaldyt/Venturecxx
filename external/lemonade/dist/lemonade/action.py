@@ -2,7 +2,7 @@
 Routines processing parser actions in the LEMON parser generator.
 '''
 
-from struct import *
+from .struct import *
 
 
 def actioncmp(ap1, ap2):
@@ -21,7 +21,7 @@ def actioncmp(ap1, ap2):
 
 def Action_sort(ap):
     '''Sort parser actions.'''
-    from msort import msort
+    from .msort import msort
     ap = msort(ap, 'next', actioncmp)
     return ap
 

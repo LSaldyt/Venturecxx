@@ -36,7 +36,7 @@ class WarningPSP(object):
     sub = getattr(self.psp, attrname)
     def f(*args, **kwargs):
       if self.name not in WarningPSP.warned:
-        print "Warning: Defaulting to using %s from Python, likely to be slow" % self.name
+        print("Warning: Defaulting to using %s from Python, likely to be slow" % self.name)
         WarningPSP.warned[self.name] = True
       return sub(*args, **kwargs)
     return f
@@ -58,7 +58,7 @@ class Trace(object):
     if trace is None:
       self.trace = puma.Trace()
       self.set_seed(seed)
-      for name, sp in builtInSPs().iteritems():
+      for name, sp in builtInSPs().items():
         if self.trace.boundInGlobalEnv(name):
           # Already there
           pass
@@ -157,7 +157,7 @@ def _expToDict(exp):
   scope = _ensure_stack_dict(exp[1])
   block = _ensure_stack_dict(exp[2])
 
-  exp = map(_unwrapVentureValue, exp)
+  exp = list(map(_unwrapVentureValue, exp))
 
   tag = exp[0]
   # Silly pylint, I intentionally write x <= (foo) and (foo) <= y below.

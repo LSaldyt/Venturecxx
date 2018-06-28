@@ -43,7 +43,7 @@ def main():
     give_jenkins_virtualenv_if_needed()
     ensure_jobs()
     ensure_github_trusts_jenkins()
-    print final_reminder
+    print(final_reminder)
 
 final_reminder = '''Done.
 
@@ -74,13 +74,13 @@ of symlinking /scratch/docker to /var/lib/docker .  One caveat:
 #### General helpers
 
 def tryit(command):
-    print command
+    print(command)
     return os.system(command)
 
 def doit(command):
     status = tryit(command)
     if status != 0:
-        raise "Command failed!"
+        raise ValueError("Command failed!")
 
 def queryit(command):
     return subprocess.check_output(command, shell=True).strip()
@@ -104,10 +104,10 @@ def install_jenkins():
 
 def install_jenkins_if_needed():
     if not is_jenkins_installed():
-        print "Installing Jenkins"
+        print("Installing Jenkins")
         install_jenkins()
     else:
-        print "Found Jenkins installation"
+        print("Found Jenkins installation")
 
 def wait_for_web_response(url):
     # TODO There has got to be a pure-Python way to do this
@@ -138,9 +138,9 @@ def is_jenkins_accessible_by_ssh():
 
 def ensure_jenkins_accessible_by_ssh():
     if is_jenkins_accessible_by_ssh():
-        print "Found Jenkins to be accessible by ssh"
+        print("Found Jenkins to be accessible by ssh")
     else:
-        print """
+        print("""
 Jenkins security appears not to be set up, and this script is too dumb
 to do it automatically.
 
@@ -175,7 +175,7 @@ to do it automatically.
    - Click "Save"
 
 6) Run this script again when done
-"""
+""")
         exit(1)
 
 #### Plugins
@@ -190,11 +190,11 @@ def ensure_plugins():
     plugins = jenkins_installed_plugins()
     for p in ["git", "github", "jenkins-flowdock-plugin", "greenballs"]:
         if p not in plugins:
-            print "Installing Jenkins plugin " + p
+            print("Installing Jenkins plugin " + p)
             doit(jenkins_ssh_command("install-plugin " + p))
             need_jenkins_restart = True
         else:
-            print "Found Jenkins plugin " + p
+            print("Found Jenkins plugin " + p)
 
 #### Restarting
 
@@ -209,15 +209,15 @@ def restart_jenkins():
 def restart_jenkins_if_needed():
     global need_jenkins_restart
     if need_jenkins_restart:
-        print "Restarting Jenkins"
+        print("Restarting Jenkins")
         restart_jenkins()
     else:
-        print "No need to restart Jenkins"
+        print("No need to restart Jenkins")
 
 #### Github's host key
 
 def ensure_jenkins_trusts_github():
-    print "Ensuring that Jenkins trusts github"
+    print("Ensuring that Jenkins trusts github")
     doit("sudo -u jenkins ssh -o PasswordAuthentication=no -o StrictHostKeyChecking=no github.com exit || true")
 
 #### Headless matplotlib
@@ -225,7 +225,7 @@ def ensure_jenkins_trusts_github():
 jenkins_home = "/var/lib/jenkins/"
 
 def ensure_headless_matplotlib():
-    print "Ensuring that Jenkins's matplotlib works headless"
+    print("Ensuring that Jenkins's matplotlib works headless")
     # Put the config in all the places where matplotlib might look for it
     doit("sudo mkdir -p " + jenkins_home + ".config/matplotlib")
     doit("echo 'backend: Agg' | sudo tee " + jenkins_home + ".config/matplotlib/matplotlibrc")
@@ -246,10 +246,10 @@ def jenkins_has_virtualenv():
 
 def give_jenkins_virtualenv_if_needed():
     if not jenkins_has_virtualenv():
-        print "Setting up virtualenv for Jenkins"
+        print("Setting up virtualenv for Jenkins")
         give_jenkins_virtualenv()
     else:
-        print "Found Jenkins virtualenv named 'env'"
+        print("Found Jenkins virtualenv named 'env'")
 
 #### Jobs configurations
 
@@ -267,10 +267,10 @@ def ensure_jobs():
     remote_jobs = queryit(jenkins_ssh_command("list-jobs")).split()
     for job in local_jobs:
         if job in remote_jobs:
-            print "Found job " + job + ", updating"
+            print("Found job " + job + ", updating")
             jenkins_update_job(job)
         else:
-            print "Creating job " + job
+            print("Creating job " + job)
             jenkins_create_job(job)
 
 def save_jobs():
@@ -285,9 +285,9 @@ def github_trusts_jenkins():
 
 def ensure_github_trusts_jenkins():
     if github_trusts_jenkins():
-        print "Found that Github trusts Jenkins"
+        print("Found that Github trusts Jenkins")
     else:
-        print """
+        print("""
 Jenkins does not appear to have credentials to pull from Github,
 and this script is too dumb to provide them automatically.
 
@@ -316,7 +316,7 @@ Please set up ssh access for Jenkins to Github:
      replace_credential_id_locally from this file to edit the config
      files of the others, then rerun this script to upload the new job
      definitions.
-"""
+""")
 
 #### Helpers for messing with ids
 

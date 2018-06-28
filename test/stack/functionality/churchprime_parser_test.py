@@ -109,7 +109,7 @@ class TestChurchPrimeParser(unittest.TestCase):
 
     def test_split_instruction(self):
         output = self.p.split_instruction(' [define blah count<132> ]')
-        print output
+        print(output)
         indices = {
                 'instruction': [2,7],
                 'symbol': [9,12],

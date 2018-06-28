@@ -50,4 +50,4 @@ def valid_versions(requirement):
 #     print valid_versions(req)
 
 for req in pkg.parse_requirements(install_requires):
-    print "%s==%s" % (req.project_name, valid_versions(req)[0])
+    print("%s==%s" % (req.project_name, valid_versions(req)[0]))

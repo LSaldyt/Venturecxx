@@ -274,7 +274,7 @@ same_assessment_packages = {
                     (5.0, 0.1),
                   ],
     'datasets' : [[0.0],
-                  map(float, range(10)),
+                  list(map(float, list(range(10)))),
                   frob]
   },
   'bernoulli' : {

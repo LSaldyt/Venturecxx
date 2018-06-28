@@ -44,7 +44,7 @@ def test_print1():
   program = ('''(sample (+ (debug "x" x) (debug "y" y)))''')
   res, captured = capture_output(ripl, program)
   res_value = res[0]['value']['value']
-  captured_x, captured_y = map(extract_integer, captured.splitlines())
+  captured_x, captured_y = list(map(extract_integer, captured.splitlines()))
   eq_(x, captured_x)
   eq_(y, captured_y)
   eq_(res_value, captured_x + captured_y)
@@ -58,5 +58,5 @@ def test_print2():
                           (debug "y" (uniform_discrete 1 10))))'''
   res, captured = capture_output(ripl, program)
   res_value = res[0]['value']['value']
-  captured_values = map(extract_integer, captured.splitlines())
+  captured_values = list(map(extract_integer, captured.splitlines()))
   eq_(res_value, sum(captured_values))

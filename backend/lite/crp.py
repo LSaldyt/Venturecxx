@@ -127,7 +127,7 @@ class CRPOutputPSP(RandomPSP):
     counts = [aux.tableCounts[i] - self.d for i in oldTables] + \
         [self.alpha + (aux.numTables * self.d)]
     nextTable = aux.nextTable if len(aux.freeTables) == 0 \
-        else iter(aux.freeTables).next()
+        else next(iter(aux.freeTables))
     allTables = oldTables + [nextTable]
     return simulateCategorical(counts, args.np_prng(), allTables)
 
@@ -175,7 +175,7 @@ class CRPOutputPSP(RandomPSP):
     # gammaln(foo+bar) - gammaln(foo+1)
     # TODO No doubt there is a numerically better way to compute this quantity.
     term1 = sum(math.log(self.alpha + i*self.d)
-      for i in xrange(1, aux.numTables))
+      for i in range(1, aux.numTables))
     term2 = sum(gammaln(aux.tableCounts[t]-self.d) - gammaln(1-self.d)
       for t in aux.tableCounts)
     term3 = gammaln(self.alpha + max(aux.numCustomers, 1)) - \
@@ -184,7 +184,7 @@ class CRPOutputPSP(RandomPSP):
 
   def enumerateValues(self, args):
     aux = args.spaux()
-    tables = aux.tableCounts.keys()
+    tables = list(aux.tableCounts.keys())
     # If there were recently unincorporated applications that emptied
     # tables, offer those as possibilities.  Otherwise, offer the next
     # unseated table.
@@ -255,7 +255,7 @@ def exact_crp_joint(n, alpha):
   The returned value is a list of (assignment, probability) pairs."""
   items = enumerate_crp_joint(n)
   probs = [math.exp(log_density_crp_joint(item, alpha)) for item in items]
-  return zip(items, probs)
+  return list(zip(items, probs))
 
 def sample_num_tables(n, alpha, np_rng=None):
   """Sample how many tables n customers get seated at by a CRP(alpha)."""
@@ -284,4 +284,4 @@ def log_prob_num_tables(k, n, alpha):
     ans -= config_denominator
     return ans
   return logsumexp([log_prob_one_assignment(items)
-                    for items in itertools.combinations(range(n-1), n-k)])
+                    for items in itertools.combinations(list(range(n-1)), n-k)])

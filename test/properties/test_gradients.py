@@ -74,7 +74,7 @@ def propGradientOfLogDensity(rnd, name, sp):
   try:
     computed_gradient = gradientOfLogDensity(sp)(value, args_lists[0])
     (dvalue, dargs) = computed_gradient
-    for (g, tp) in [(dvalue, sp.venture_type().gradient_type().return_type)] + zip(dargs, expected_grad_type):
+    for (g, tp) in [(dvalue, sp.venture_type().gradient_type().return_type)] + list(zip(dargs, expected_grad_type)):
       if g == 0:
         pass # OK
       else:

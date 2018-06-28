@@ -88,7 +88,7 @@ def constrain(trace, node, value):
   return ensure_python_float(weight)
 
 def propagateConstraints(trace, constraintsToPropagate):
-  for node, value in constraintsToPropagate.iteritems():
+  for node, value in constraintsToPropagate.items():
     for child in trace.childrenAt(node):
       propagateConstraint(trace, child, value)
 
@@ -186,8 +186,7 @@ def evalFamily(trace, address, exp, env, scaffold,
     except VentureError as err:
       import sys
       info = sys.exc_info()
-      raise VentureException("evaluation", err.message, address=address), \
-        None, info[2]
+      raise VentureException("evaluation", err.message, address=address).with_traceback(info[2])
     weight = regen(trace, sourceNode, scaffold,
                    shouldRestore, omegaDB, gradients)
     return (weight, trace.createLookupNode(address, sourceNode))
@@ -219,14 +218,14 @@ def evalFamily(trace, address, exp, env, scaffold,
       import sys
       info = sys.exc_info()
       raise VentureException("evaluation", err.message, address=err.addr,
-                             cause=err), None, info[2]
+                             cause=err).with_traceback(info[2])
     except VentureException:
       raise # Avoid rewrapping with the below
     except Exception as err:
       import sys
       info = sys.exc_info()
       raise VentureException("evaluation", err.message, address=address,
-                             cause=err), None, info[2]
+                             cause=err).with_traceback(info[2])
     return ensure_python_float(weight), outputNode
 
 def apply(trace, requestNode, outputNode, scaffold,

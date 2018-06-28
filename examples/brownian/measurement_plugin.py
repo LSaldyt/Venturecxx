@@ -40,14 +40,14 @@ def collect(inferrer, step_speed):
   errors.append((speed_est - true_speed) * (speed_est - true_speed))
 
 def emit(_inferrer):
-  print times
-  print errors
+  print(times)
+  print(errors)
   plt.title("Estimation error")
   plt.xlabel("Time (s)")
   plt.ylabel("Error")
   plt.plot(times, errors)
   plt.savefig("brownian-error.png")
-  print "Plot saved in brownian-error.png"
+  print("Plot saved in brownian-error.png")
 
 def __venture_start__(ripl):
   ripl.bind_callback("collect", collect)

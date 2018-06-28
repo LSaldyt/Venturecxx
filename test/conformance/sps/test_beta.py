@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Venture.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import division
+
 
 import math
 import multiprocessing
@@ -104,7 +104,7 @@ def collect_sp_samples(sp, args, seed, aux=None, nsamples=None):
     py_rng = random.Random(np_rng.randint(1, 2**31 - 1))
     sp_args = MockArgs(args, aux, py_rng=py_rng, np_rng=np_rng)
     sp0 = sp()
-    return [sp0.simulate(sp_args) for _ in xrange(nsamples)]
+    return [sp0.simulate(sp_args) for _ in range(nsamples)]
 
 BETA_SPACES = (
     ('beta', BetaOutputPSP, lambda x: x, 0, 1),
@@ -148,7 +148,7 @@ def test_log_odds_uniform_cdf(seed):
 def check_beta_ks(name, sp, to_direct, lo, a, b, seed):
     samples = collect_sp_samples(sp, (a, b), seed)
     dist = scipy.stats.beta(a, b)
-    return reportKnownContinuous(dist.cdf, map(to_direct, samples),
+    return reportKnownContinuous(dist.cdf, list(map(to_direct, samples)),
         descr='(%s %r %r)' % (name, a, b))
 
 @gen_on_inf_prim("none")

@@ -139,7 +139,7 @@ def doit(num_points, num_frames, show_pics):
     do_infer(ripl, 1)
     clusters = collect_clusters(ripl, num_points)
     if show_pics:
-      print "Cluster means:", clusters['mean']
+      print("Cluster means:", clusters['mean'])
     do_plot(x_l, y_l, clusters, show_pics=show_pics)
 
 if __name__ == '__main__':

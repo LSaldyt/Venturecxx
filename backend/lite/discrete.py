@@ -327,7 +327,7 @@ class UniformDiscreteOutputPSP(DiscretePSP):
       return log(0.0)
 
   def enumerateValues(self, args):
-    return range(*[int(x) for x in args.operandValues()])
+    return list(range(*[int(x) for x in args.operandValues()]))
 
   def description(self, name):
     return '  %s(start, end) samples a uniform discrete on the '\

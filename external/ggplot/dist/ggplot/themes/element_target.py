@@ -76,7 +76,7 @@ def sorted_element_targets(element_target_list):
     return sorted(element_target_list, key=key, reverse=True)
 
 
-class __element_target(with_metaclass(RegisterElementTarget, object)):
+class __element_target(with_metaclass(RegisterElementTarget, object), metaclass=RegisterElementTarget):
     """__element_target is an abstract class of things that can be themed.
 
     It is the base of a class hierarchy that uses inheritance in a
@@ -119,7 +119,6 @@ class __element_target(with_metaclass(RegisterElementTarget, object)):
     the target's implementation to the axes.
 
     """
-    __metaclass__ = RegisterElementTarget
 
     def __init__(self, element_theme=None):
         # @todo: fix unittests in test_element_target or leave this as is?

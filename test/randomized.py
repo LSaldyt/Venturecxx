@@ -117,7 +117,7 @@ def findAppropriateArguments(f, type_, max_tries, *args, **kwargs):
       # http://nedbatchelder.com/blog/200711/rethrowing_exceptions_in_python.html
       import sys
       info = sys.exc_info()
-      raise info[0]("%s led to %s" % (synth_args, info[1])), None, info[2]
+      raise info[0]("%s led to %s" % (synth_args, info[1])).with_traceback(info[2])
   return None
 
 def carefully(f, *args, **kwargs):
@@ -125,8 +125,8 @@ def carefully(f, *args, **kwargs):
 VentureValueError into ArgumentsNotAppropriate."""
   try:
     return f(*args, **kwargs)
-  except ValueError, e: raise ArgumentsNotAppropriate(e)
-  except VentureValueError, e: raise ArgumentsNotAppropriate(e)
+  except ValueError as e: raise ArgumentsNotAppropriate(e)
+  except VentureValueError as e: raise ArgumentsNotAppropriate(e)
 
 def sp_args_type(sp_type):
   """Returns a list representing the types of arguments that may be

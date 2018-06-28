@@ -47,6 +47,6 @@ def assign_alphas(data, aes):
             quantiles = normalize(np.array(labels, dtype=np.float))
         legend_entry = {
             'column_name': alpha_col,
-            'dict': dict(zip(quantiles, labels)),
+            'dict': dict(list(zip(quantiles, labels))),
             'scale_type': scale_type}
     return data, legend_entry

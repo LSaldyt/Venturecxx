@@ -18,7 +18,7 @@ else:
 time1 = time()
 lexicon = pascal.make_lexicon()
 time2 = time()
-print "Constructing scanner took %s %s seconds" % (time2 - time1, timekind)
+print("Constructing scanner took %s %s seconds" % (time2 - time1, timekind))
 
 f = open("speedtest.in", "r")
 scanner = Plex.Scanner(lexicon, f)
@@ -31,8 +31,8 @@ time2 = time()
 _, lines, _ = scanner.position()
 time = time2 - time1
 lps = float(lines) / float(time)
-print "Scanning %d lines took %s %s seconds (%s lines/sec)" % (
-  lines, time, timekind, lps)
+print("Scanning %d lines took %s %s seconds (%s lines/sec)" % (
+  lines, time, timekind, lps))
 
 
 

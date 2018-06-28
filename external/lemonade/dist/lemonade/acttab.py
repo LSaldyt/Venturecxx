@@ -3,8 +3,8 @@ This module implements routines use to construct the yy_action[] table.
 '''
 
 
-from struct import *
-from ccruft import struct
+from .struct import *
+from .ccruft import struct
 
 
 # The state of the yy_action table under construction is an instance

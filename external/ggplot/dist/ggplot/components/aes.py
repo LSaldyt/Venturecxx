@@ -57,7 +57,7 @@ class aes(UserDict):
 
     def __init__(self, *args, **kwargs):
         if args:
-            self.data = dict(zip(self.DEFAULT_ARGS, args))
+            self.data = dict(list(zip(self.DEFAULT_ARGS, args)))
         else:
             self.data = {}
         if kwargs:
@@ -70,7 +70,7 @@ class aes(UserDict):
     def __deepcopy__(self, memo):
         '''deepcopy support for ggplot'''
         result = aes()
-        for key, item in self.__dict__.items():
+        for key, item in list(self.__dict__.items()):
             # don't make a deepcopy of the env!
             if key == "__eval_env__":
                 result.__dict__[key] = self.__dict__[key]

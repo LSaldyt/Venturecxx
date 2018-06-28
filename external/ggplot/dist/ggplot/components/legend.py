@@ -45,7 +45,7 @@ def add_legend(legend, ax):
         legend_entry = legend[aesthetic]
         column_name = legend_entry["column_name"]
         g = groups.get(column_name, {})
-        legend_dict = { l:c for c,l in legend_entry['dict'].items() }
+        legend_dict = { l:c for c,l in list(legend_entry['dict'].items()) }
         g[aesthetic] = defaultdict(lambda : None, legend_dict)
         groups[column_name] = g
 

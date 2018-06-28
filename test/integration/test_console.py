@@ -68,7 +68,7 @@ class SpawnVentureExpect(pexpect.spawn):
     cmd = cmd.strip()
     self.sendline(cmd)
     check_echo = ''
-    for _ in xrange(len(re.split(r'[\r\n]+', cmd))):
+    for _ in range(len(re.split(r'[\r\n]+', cmd))):
       self.expect_exact('\r\n')
       check_echo += re.sub(self.ps1, '', re.sub(self.ps2, '', self.before))
 
@@ -76,7 +76,7 @@ class SpawnVentureExpect(pexpect.spawn):
     # wraps which vary from system to system (e.g., Mac OS X
     # inserts SPC BS at end of line, whereas Linux inserts SPC CR).
     def remove_control(strn):
-      return strn.translate(None, ''.join(map(chr, range(32 + 1) + [127])))
+      return strn.translate(None, ''.join(map(chr, list(range(32 + 1)) + [127])))
     # Turns out removing control characters is not enough to get
     # equality, because if the prompt and the command together are too
     # long, the pty might echo part of it

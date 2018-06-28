@@ -49,6 +49,6 @@ def assign_sizes(data, aes):
 
         legend_entry = {
             'column_name': size_col,
-            'dict': dict(zip(quantiles, labels)),
+            'dict': dict(list(zip(quantiles, labels))),
             'scale_type': scale_type}
     return data, legend_entry

@@ -102,7 +102,7 @@ class Address(List):
   
   def asList(self):
     """Converts to nested lists."""
-    return map(list, list(self))
+    return list(map(list, list(self)))
 
   def asFrozenList(self):
     return tuple(map(tuple, list(self)))

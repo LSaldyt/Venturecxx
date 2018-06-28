@@ -117,7 +117,7 @@ def testBasicParticleFilter1(seed):
   N = default_num_samples()
   predictions = []
 
-  os = zip(range(1,6),[False,False,True,False,False])
+  os = list(zip(list(range(1,6)),[False,False,True,False,False]))
 
   rng = random.Random(seed)
   for _ in range(N):
@@ -161,7 +161,7 @@ def testBasicParticleFilter2(seed):
   N = default_num_samples()
   predictions = []
 
-  os = zip(range(0,5),[1,2,3,4,5])
+  os = list(zip(list(range(0,5)),[1,2,3,4,5]))
 
   rng = random.Random(seed)
   for _ in range(N):

@@ -27,6 +27,7 @@ from numpy.testing import assert_equal
 from venture.test.config import broken_in
 from venture.test.config import get_ripl
 from venture.test.config import on_inf_prim
+from functools import reduce
 
 # TODO: Sampling (uniform_discrete) returns atoms, not ints. This breaks things.
 # I hack it by doing (assume foo (* 1 (uniform_discrete ...))). Ideally, make
@@ -84,16 +85,16 @@ class TestPrelude(TestCase):
     assert mode in self.random_modes
     assert container in self.containers
     # length of the container
-    if length is None: length = random.choice(range(*self.container_length))
+    if length is None: length = random.choice(list(range(*self.container_length)))
     # if it's a vector, numeric only
     if container == 'vector':
       mode = 'numeric'
     if mode == 'boolean':
       # if boolean, make a random boolean vector
-      res = map(str, np.random.uniform(0,1,length) > 0.5)
+      res = list(map(str, np.random.uniform(0,1,length) > 0.5))
     if mode == 'numeric':
       # if numeric, draw some normal random variables
-      res = map(str, np.random.randn(length))
+      res = list(map(str, np.random.randn(length)))
     if mode == 'mixed':
       # if mixed, draw some numbers and some strings
       res = []
@@ -101,7 +102,7 @@ class TestPrelude(TestCase):
         if np.random.uniform() > 0.5:
           res.append(str(np.random.randn()))
         else:
-          nchars = random.choice(range(*self.container_length))
+          nchars = random.choice(list(range(*self.container_length)))
           thisword = ''.join(random.sample(string.letters, nchars))
           res.append('(quote {0})'.format(thisword))
     res = '({0} {1})'.format(container, ' '.join(res))
@@ -112,7 +113,7 @@ class TestPrelude(TestCase):
   def _mk_random_vector(self):
     return self.mk_random_data('vector', 'mixed')
   def _mk_random_simplex(self):
-    length = random.choice(range(*self.container_length))
+    length = random.choice(list(range(*self.container_length)))
     data = np.random.uniform(0, 1, length)
     data1 = data/np.sum(data)
     return '(simplex %s)' % (' '.join('%.17e' % (datum,) for datum in data1),)
@@ -182,7 +183,7 @@ class TestPrelude(TestCase):
       x = self.r.assume('x', self.mk_random_data(container, 'numeric'))
       _ = self.r.assume('f', f_ven)
       # apply the mapping, make sure the results match
-      mapped_py = map(f_py, x)
+      mapped_py = list(map(f_py, x))
       mapped_ven = self.array_to_list(self.r.assume('mapped', '(map f x)'),
                                       container)
       self.assertEqual(mapped_py, mapped_ven)
@@ -254,7 +255,7 @@ class TestPrelude(TestCase):
     self.reset_ripl()
     start = int(self.r.assume('start', '(* 1 (uniform_discrete 1 10))'))
     stop = int(self.r.assume('stop', '(* 1 (uniform_discrete (+ 1 start) (+ 1 10)))'))
-    res_py = range(start, stop)
+    res_py = list(range(start, stop))
     res_ven = self.r.assume('res', '(range start stop)')
     self.assertEqual(res_py, res_ven)
 
