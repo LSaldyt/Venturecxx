@@ -7,7 +7,7 @@ env:
     - REAL_BRANCH=$(git ls-remote origin | sed -n "\|$TRAVIS_COMMIT\s\+refs/heads/|{s///p}")
 
 python:
-  - 2.7
+  - 3.6
 
 install:
   - sudo apt-get install -qq build-essential ccache libboost-all-dev libgsl0-dev

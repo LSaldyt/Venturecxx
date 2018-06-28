@@ -14,7 +14,7 @@ source:
 requirements:
   build:
     - git
-    - python 2.7.*
+    - python 3.6.*
   run:
     - flask >=0.10
     - jsonschema
@@ -23,7 +23,7 @@ requirements:
     - numpy 1.11.*
     - pandas 0.18.*
     - patsy >=0.2
-    - python 2.7.*
+    - python 3.6.*
     - requests >=1.2
     - scipy 0.17.*
     - six 1.10.*
@@ -38,7 +38,7 @@ test:
     - nose >=1.3
     - pexpect
     - pytest 2.8.*
-    - python 2.7.*
+    - python 3.6.*
     - six 1.10.*
   commands:
     - nosetests -c lite-crashes.cfg -w test -e integration

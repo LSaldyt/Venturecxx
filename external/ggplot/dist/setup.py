@@ -21,9 +21,9 @@ def get_package_data():
         'ggplot':
         baseline_images +
         [
-            "exampledata/*.csv", 
+            "exampledata/*.csv",
             "geoms/*.png"
-        ]} 
+        ]}
 
 setup(
     name="ggplot",

@@ -15,6 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Venture.  If not, see <http://www.gnu.org/licenses/>.
 
-export PUMA_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/venture/puma
+export PUMA_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/venture/puma
 make
 sudo mv -f libtrace.dylib $PUMA_PATH/libtrace.so
