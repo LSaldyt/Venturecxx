@@ -92,7 +92,7 @@ def write_version_py(path):
         version_old = None
     version_new = '__version__ = %r\n' % (full_version,)
     if version_old != version_new:
-        print('writing %s' % (path,))
+        print(('writing %s' % (path,)))
         with open(path, 'wb') as f:
             f.write(version_new)
 
@@ -222,7 +222,7 @@ if ON_MAC:
         sources = puma_src_files)
 
 if "SKIP_PUMA_BACKEND" in os.environ:
-    print("Skipping Puma backend because SKIP_PUMA_BACKEND is %s" % os.environ["SKIP_PUMA_BACKEND"])
+    print(("Skipping Puma backend because SKIP_PUMA_BACKEND is %s" % os.environ["SKIP_PUMA_BACKEND"]))
     print("Unset it to build the Puma backend.")
 else:
     ext_modules.append(puma)
@@ -302,7 +302,7 @@ def generate_parser(lemonade, path_y):
     path_sha256 = base + '.sha256'
     if uptodate(path_y, path_py, path_sha256):
         return
-    print('generating %s -> %s' % (path_y, path_py))
+    print(('generating %s -> %s' % (path_y, path_py)))
     distutils.spawn.spawn([
         '/usr/bin/env', 'PYTHONPATH=' + lemonade,
         lemonade + '/bin/lemonade',
