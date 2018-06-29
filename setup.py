@@ -43,7 +43,7 @@ import subprocess
 import sys
 
 def get_version():
-    with open('VERSION', 'rb') as f:
+    with open('VERSION', 'r') as f:
         version = f.read().strip()
 
     # Append the Git commit id if this is a development version.
@@ -86,7 +86,7 @@ pkg_version, full_version = get_version()
 
 def write_version_py(path):
     try:
-        with open(path, 'rb') as f:
+        with open(path, 'r') as f:
             version_old = f.read()
     except IOError:
         version_old = None
