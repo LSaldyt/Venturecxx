@@ -399,7 +399,7 @@ version_py = 'python/lib/version.py'
 
 setup (
     name = 'venture',
-    version = pkg_version,
+    version = str(pkg_version),
     author = 'MIT Probabilistic Computing Project',
     author_email = 'venture-dev@lists.csail.mit.edu',
     url = 'http://probcomp.csail.mit.edu/venture/',
