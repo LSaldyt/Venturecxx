@@ -70,7 +70,7 @@ def get_version():
     # Strip the local part if there is one, to appease pkg_resources,
     # which handles only PEP 386, not PEP 440.
     if '+' in str(full_version):
-        pkg_version = full_version[:full_version.find('+')]
+        pkg_version = full_version[:full_version.find(b'+')]
     else:
         pkg_version = full_version
 
