@@ -30,6 +30,7 @@ Ubuntu
     sudo apt-get install -y python-scipy       # If you don't already have it
     pip install venture-0.4.2.tar.gz
 
+
 OSX
 ---
 
